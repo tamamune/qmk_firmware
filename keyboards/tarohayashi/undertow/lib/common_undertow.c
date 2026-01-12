@@ -437,6 +437,17 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         int16_t temp_x_val = gp29_val - gp29_newt;
         int16_t temp_y_val = gp28_val - gp28_newt;
 
+        if (abs(temp_x_val) < joystick_offset_min) {
+                    temp_x_val = 0;
+                    x_accumulator = 0.0f;
+                    h_accumulator = 0.0f;
+                }
+                if (abs(temp_y_val) < joystick_offset_min) {
+                    temp_y_val = 0;
+                    y_accumulator = 0.0f;
+                    v_accumulator = 0.0f;
+                }
+        
         // 最大値最小値の更新
         if(gp29_val > gp29_max){
             gp29_max = gp29_val;
@@ -450,12 +461,6 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
             gp28_min = gp28_val;
         }
 
-        if(abs(gp29_val)<joystick_offset_min){
-            gp29_val = 0;
-        }
-        if(abs(gp28_val)<joystick_offset_min){
-            gp28_val = 0;
-        }
 
         float x_val_js = ( (float)temp_x_val / JOYSTICK_DIVISOR ) * amp_temp;
         float y_val_js = ( (float)temp_y_val / JOYSTICK_DIVISOR ) * amp_temp;
