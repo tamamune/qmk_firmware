@@ -547,35 +547,43 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
                     break;
             }
         }
-        // 数値の取得と補正
-        gp28_val = analogReadPin(GP28);
-        gp27_val = analogReadPin(GP27);
-        int16_t temp_x_val = gp28_val - gp28_newt;
-        int16_t temp_y_val = gp27_val - gp27_newt;
-
-        // 最大値最小値の更新
-        if(gp28_val > gp28_max){
-            gp28_max = gp28_val;
-        }else if(gp28_val < gp28_min){
-            gp28_min = gp28_val;
-        }
-
-        if(gp27_val > gp27_max){
-            gp27_max = gp27_val;
-        }else if(gp27_val < gp27_min){
-            gp27_min = gp27_val;
-        }
-
-        if(abs(temp_x_val) < joystick_offset_min){
-            temp_x_val = 0;
-        }
-        if(abs(temp_y_val) < joystick_offset_min){
-            temp_y_val = 0;
-        }
-
-        x_val_js = ( (float)temp_x_val / JOYSTICK_DIVISOR ) * amp_temp;
-        y_val_js = ( (float)temp_y_val / JOYSTICK_DIVISOR ) * amp_temp;
-    }
+        // 数値の取得
+                gp28_val = analogReadPin(GP28);
+                gp27_val = analogReadPin(GP27);
+                
+                // --- 修正箇所: デッドゾーン処理の適用 ---
+                int16_t temp_x_raw = gp28_val - gp28_newt;
+                int16_t temp_y_raw = gp27_val - gp27_newt;
+                int16_t temp_x_val = 0;
+                int16_t temp_y_val = 0;
+        
+                // X軸のデッドゾーン判定
+                if (abs(temp_x_raw) > joystick_offset_min) {
+                    temp_x_val = (temp_x_raw > 0) ? (temp_x_raw - joystick_offset_min) : (temp_x_raw + joystick_offset_min);
+                }
+                // Y軸のデッドゾーン判定
+                if (abs(temp_y_raw) > joystick_offset_min) {
+                    temp_y_val = (temp_y_raw > 0) ? (temp_y_raw - joystick_offset_min) : (temp_y_raw + joystick_offset_min);
+                }
+                // ---------------------------------------
+        
+                // 最大値最小値の更新（ここは生の値 gp28_val / gp27_val を使用）
+                if(gp28_val > gp28_max){
+                    gp28_max = gp28_val;
+                }else if(gp28_val < gp28_min){
+                    gp28_min = gp28_val;
+                }
+        
+                if(gp27_val > gp27_max){
+                    gp27_max = gp27_val;
+                }else if(gp27_val < gp27_min){
+                    gp27_min = gp27_val;
+                }
+        
+                // 計算された temp_x_val / temp_y_val を使用して座標変換
+                x_val_js = ( (float)temp_x_val / JOYSTICK_DIVISOR ) * amp_temp;
+                y_val_js = ( (float)temp_y_val / JOYSTICK_DIVISOR ) * amp_temp;
+            }
     // マウスの数値はそのまま使う
     float x_val_l = 0.0;
     float y_val_l = 0.0;
