@@ -411,14 +411,20 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         }
 
         if(abs(js_x_val) < joystick_offset_min){
-            js_x_val = 0;
-        }
-        if(abs(js_y_val) < joystick_offset_min){
-            js_y_val = 0;
-        }
-
-        x_val = ( (float)js_x_val / JOYSTICK_DIVISOR ) * amp_temp;
-        y_val = ( (float)js_y_val / JOYSTICK_DIVISOR ) * amp_temp;
+                    js_x_val = 0;
+                    x_accumulator = 0; // 中心にいる時は蓄積をクリア
+                }
+                if(abs(js_y_val) < joystick_offset_min){
+                    js_y_val = 0;
+                    y_accumulator = 0; // 中心にいる時は蓄積をクリア
+                }
+        
+                x_val = ( (float)js_x_val / JOYSTICK_DIVISOR ) * amp_temp;
+                y_val = ( (float)js_y_val / JOYSTICK_DIVISOR ) * amp_temp;
+        
+                // 【追加】完全に静止させるための閾値処理 (ノイズ対策)
+                if (fabsf(x_val) < 0.01f) x_val = 0.0f;
+                if (fabsf(y_val) < 0.01f) y_val = 0.0f;
     // マウスの時は数値はそのまま使う
     }else{
         x_val = (float)mouse_report.x;
@@ -432,6 +438,10 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     // 前回移動量を参照して補正
     float smoothed_x = prev_x * SMOOTHING_FACTOR + x_rev * (1.0 - SMOOTHING_FACTOR);
     float smoothed_y = prev_y * SMOOTHING_FACTOR + y_rev * (1.0 - SMOOTHING_FACTOR);
+    
+    // 【追加】極低速時のドリフトをカット
+        if (fabsf(smoothed_x) < 0.05f) smoothed_x = 0.0f;
+        if (fabsf(smoothed_y) < 0.05f) smoothed_y = 0.0f;
     prev_x = smoothed_x;
     prev_y = smoothed_y;
 
