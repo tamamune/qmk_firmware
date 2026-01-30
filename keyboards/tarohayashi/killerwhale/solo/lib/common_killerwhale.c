@@ -278,92 +278,58 @@ report_mouse_t pointing_device_gaming(int16_t gp28_val, int16_t gp27_val){
     mouse_report.h = 0;
     mouse_report.v = 0;
 
-    // セットアップ
-    float x_val = (float)(gp28_val - gp28_newt);
-    float y_val = (float)(gp27_val - gp27_newt);
-    // xが正 = 右の場合
-    if(gp28_val > gp28_newt){
-        // 値が小さければ0
-        if(gp28_val < (float)(gp28_newt + joystick_offset_min)){
-            x_val = 0.0;
-        // 値が大きければ減らす
-        }else if(gp28_val > (float)(gp28_max - joystick_offset_max)){
-            x_val = x_val - joystick_offset_max;
-        }
-        // 正規化
-        float span = (float)(gp28_max - joystick_offset_max - joystick_offset_min - gp28_newt);
-        if(span > 0){
-            x_val = x_val / span * 511.0;
-        }else{
-            x_val = 0.0;
-        }
-    // xが負 = 左の場合
-    }else{
-        // 値が小さければ0
-        if(gp28_val > (float)(gp28_newt - joystick_offset_min)){
-            x_val = 0.0;
-        // 値が大きければ減らす
-        }else if(gp28_val < (float)(gp28_min + joystick_offset_max)){
-            x_val = x_val + joystick_offset_max;
-        }
-        // 正規化
-        float span =  (float)(gp28_newt - joystick_offset_max - joystick_offset_min - gp28_min);
-        if (span > 0){
-            x_val = x_val / span * 511.0;
-        }else{
-            x_val = 0.0;
-        }
-    }
-    // yが正 = 上の場合
-    if(gp27_val > gp27_newt){
-        // 値が小さければ0
-        if(gp27_val < (float)(gp27_newt + joystick_offset_min)){
-            y_val = 0.0;
-        // 値が大きければ減らす
-        }else if(gp27_val > (float)(gp27_max - joystick_offset_max)){
-            y_val = y_val - joystick_offset_max;
-        }
-        // 正規化
-        float span = (float)(gp27_max - joystick_offset_max - joystick_offset_min - gp27_newt);
-        if(span > 0){
-            y_val = y_val / span * 511.0;
-        }else{
-            y_val = 0.0;
-        }
-    // yが正 = 下の場合
-    }else{
-        // 値が小さければ0
-        if(gp27_val > (float)(gp27_newt - joystick_offset_min)){
-            y_val = 0.0;
-        // 値が大きければ減らす
-        }else if(gp27_val < (float)(gp27_min + joystick_offset_max)){
-            y_val = y_val + joystick_offset_max;
-        }
-        // 正規化
-        float span =  (float)(gp27_newt - joystick_offset_max - joystick_offset_min - gp27_min);
-        if (span > 0){
-            y_val = y_val / span * 511.0;
-        }else{
-            y_val = 0.0;
+    float x_val = 0.0f;
+    float y_val = 0.0f;
+
+    // --- X軸（GP28）の処理 ---
+    if (abs(gp28_val - gp28_newt) < joystick_offset_min) {
+        x_val = 0.0f;
+    } else {
+        if (gp28_val > gp28_newt) {
+            // 右方向
+            float span = (float)(gp28_max - joystick_offset_max - (gp28_newt + joystick_offset_min));
+            x_val = (span > 0) ? (float)(gp28_val - (gp28_newt + joystick_offset_min)) / span * 511.0f : 0.0f;
+        } else {
+            // 左方向
+            float span = (float)((gp28_newt - joystick_offset_min) - (gp28_min + joystick_offset_max));
+            x_val = (span > 0) ? (float)(gp28_val - (gp28_newt - joystick_offset_min)) / span * 511.0f : 0.0f;
         }
     }
 
-    // 角度の修正
-    float rad = (float)kw_config.angle * 6.0 * (M_PI / 180.0) * -1.0;
-    float x_rev =  + x_val * cos(rad) - y_val * sin(rad);
-    float y_rev =  + x_val * sin(rad) + y_val * cos(rad);
-
-    // x軸反転処理f
-    if(kw_config.inv){
-            x_rev = -1 * x_rev;
+    // --- Y軸（GP27）の処理 ---
+    if (abs(gp27_val - gp27_newt) < joystick_offset_min) {
+        y_val = 0.0f;
+    } else {
+        if (gp27_val > gp27_newt) {
+            // 上方向
+            float span = (float)(gp27_max - joystick_offset_max - (gp27_newt + joystick_offset_min));
+            y_val = (span > 0) ? (float)(gp27_val - (gp27_newt + joystick_offset_min)) / span * 511.0f : 0.0f;
+        } else {
+            // 下方向
+            float span = (float)((gp27_newt - joystick_offset_min) - (gp27_min + joystick_offset_max));
+            y_val = (span > 0) ? (float)(gp27_val - (gp27_newt - joystick_offset_min)) / span * 511.0f : 0.0f;
+        }
     }
+
+    // 角度補正の計算
+    float rad = (float)kw_config.angle * 6.0f * (M_PI / 180.0f) * -1.0f;
+    float x_rev = x_val * cosf(rad) - y_val * sinf(rad);
+    float y_rev = x_val * sinf(rad) + y_val * cosf(rad);
+
+    // X軸反転
+    if (kw_config.inv) {
+        x_rev = -x_rev;
+    }
+
+    // ドリフト防止の最終カットオフ（計算誤差用）
+    if (fabsf(x_rev) < 0.1f) x_rev = 0.0f;
+    if (fabsf(y_rev) < 0.1f) y_rev = 0.0f;
 
     joystick_set_axis(0, (int16_t)x_rev);
     joystick_set_axis(1, (int16_t)y_rev);
 
     return mouse_report;
 }
-
 // 実タスク
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     float x_val = 0.0;
@@ -412,16 +378,18 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
         if(abs(js_x_val) < joystick_offset_min){
                     js_x_val = 0;
+                    x_val = 0.0f;
                     x_accumulator = 0; // 中心にいる時は蓄積をクリア
                 }
                 if(abs(js_y_val) < joystick_offset_min){
                     js_y_val = 0;
+                    y_val = 0.0f;
                     y_accumulator = 0; // 中心にいる時は蓄積をクリア
                 }
-        
+
                 x_val = ( (float)js_x_val / JOYSTICK_DIVISOR ) * amp_temp;
                 y_val = ( (float)js_y_val / JOYSTICK_DIVISOR ) * amp_temp;
-        
+
                 // 【追加】完全に静止させるための閾値処理 (ノイズ対策)
                 if (fabsf(x_val) < 0.01f) x_val = 0.0f;
                 if (fabsf(y_val) < 0.01f) y_val = 0.0f;
@@ -438,7 +406,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     // 前回移動量を参照して補正
     float smoothed_x = prev_x * SMOOTHING_FACTOR + x_rev * (1.0 - SMOOTHING_FACTOR);
     float smoothed_y = prev_y * SMOOTHING_FACTOR + y_rev * (1.0 - SMOOTHING_FACTOR);
-    
+
     // 【追加】極低速時のドリフトをカット
         if (fabsf(smoothed_x) < 0.05f) smoothed_x = 0.0f;
         if (fabsf(smoothed_y) < 0.05f) smoothed_y = 0.0f;
