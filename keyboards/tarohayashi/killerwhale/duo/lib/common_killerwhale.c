@@ -398,110 +398,69 @@ report_mouse_t pointing_device_gaming(bool is_left, int16_t gp28_val, int16_t gp
     mouse_report.h = 0;
     mouse_report.v = 0;
 
-    // セットアップ
+    // 初期偏差の計算
     float x_val = (float)(gp28_val - gp28_newt);
     float y_val = (float)(gp27_val - gp27_newt);
-    // xが正 = 右の場合
-    if(gp28_val > gp28_newt){
-        // 値が小さければ0
-        if(gp28_val < (float)(gp28_newt + joystick_offset_min)){
-            x_val = 0.0;
-        // 値が大きければ減らす
-        }else if(gp28_val > (float)(gp28_max - joystick_offset_max)){
-            x_val = x_val - joystick_offset_max;
-        }
-        // 正規化
-        float span = (float)(gp28_max - joystick_offset_max - joystick_offset_min - gp28_newt);
-        if(span > 0){
-            x_val = x_val / span * 511.0;
-        }else{
-            x_val = 0.0;
-        }
-    // xが負 = 左の場合
-    }else{
-        // 値が小さければ0
-        if(gp28_val > (float)(gp28_newt - joystick_offset_min)){
-            x_val = 0.0;
-        // 値が大きければ減らす
-        }else if(gp28_val < (float)(gp28_min + joystick_offset_max)){
-            x_val = x_val + joystick_offset_max;
-        }
-        // 正規化
-        float span =  (float)(gp28_newt - joystick_offset_max - joystick_offset_min - gp28_min);
-        if (span > 0){
-            x_val = x_val / span * 511.0;
-        }else{
-            x_val = 0.0;
+
+    // --- X軸のデッドゾーン処理 ---
+    if (abs(gp28_val - gp28_newt) < joystick_offset_min) {
+        x_val = 0.0f;
+    } else {
+        if(gp28_val > gp28_newt){
+            x_val = (float)(gp28_val - (gp28_newt + joystick_offset_min));
+            float span = (float)(gp28_max - joystick_offset_max - (gp28_newt + joystick_offset_min));
+            x_val = (span > 0) ? (x_val / span * 511.0f) : 0.0f;
+        } else {
+            x_val = (float)(gp28_val - (gp28_newt - joystick_offset_min));
+            float span = (float)((gp28_newt - joystick_offset_min) - (gp28_min + joystick_offset_max));
+            x_val = (span > 0) ? (x_val / span * 511.0f) : 0.0f;
         }
     }
-    // yが正 = 上の場合
-    if(gp27_val > gp27_newt){
-        // 値が小さければ0
-        if(gp27_val < (float)(gp27_newt + joystick_offset_min)){
-            y_val = 0.0;
-        // 値が大きければ減らす
-        }else if(gp27_val > (float)(gp27_max - joystick_offset_max)){
-            y_val = y_val - joystick_offset_max;
-        }
-        // 正規化
-        float span = (float)(gp27_max - joystick_offset_max - joystick_offset_min - gp27_newt);
-        if(span > 0){
-            y_val = y_val / span * 511.0;
-        }else{
-            y_val = 0.0;
-        }
-    // yが正 = 下の場合
-    }else{
-        // 値が小さければ0
-        if(gp27_val > (float)(gp27_newt - joystick_offset_min)){
-            y_val = 0.0;
-        // 値が大きければ減らす
-        }else if(gp27_val < (float)(gp27_min + joystick_offset_max)){
-            y_val = y_val + joystick_offset_max;
-        }
-        // 正規化
-        float span =  (float)(gp27_newt - joystick_offset_max - joystick_offset_min - gp27_min);
-        if (span > 0){
-            y_val = y_val / span * 511.0;
-        }else{
-            y_val = 0.0;
+
+    // --- Y軸のデッドゾーン処理 ---
+    if (abs(gp27_val - gp27_newt) < joystick_offset_min) {
+        y_val = 0.0f;
+    } else {
+        if(gp27_val > gp27_newt){
+            y_val = (float)(gp27_val - (gp27_newt + joystick_offset_min));
+            float span = (float)(gp27_max - joystick_offset_max - (gp27_newt + joystick_offset_min));
+            y_val = (span > 0) ? (y_val / span * 511.0f) : 0.0f;
+        } else {
+            y_val = (float)(gp27_val - (gp27_newt - joystick_offset_min));
+            float span = (float)((gp27_newt - joystick_offset_min) - (gp27_min + joystick_offset_max));
+            y_val = (span > 0) ? (y_val / span * 511.0f) : 0.0f;
         }
     }
+
+    // 軸の制限 (念のためオーバーフロー防止)
+    x_val = fminf(fmaxf(x_val, -512.0f), 511.0f);
+    y_val = fminf(fmaxf(y_val, -512.0f), 511.0f);
 
     float rad;
     float x_rev;
     float y_rev;
 
-    if(is_left){
-        // 角度の修正
-        rad = (float)kw_config.angle_l * 12.0 * (M_PI / 180.0) * -1.0;
-        x_rev =  + x_val * cos(rad) - y_val * sin(rad);
-        y_rev =  + x_val * sin(rad) + y_val * cos(rad);
+    // 角度と反転の適用
+    float current_angle = is_left ? (float)kw_config.angle_l : (float)kw_config.angle_r;
+    bool is_inv = is_left ? kw_config.inv_l : kw_config.inv_r;
 
-        // x軸反転処理
-        if(kw_config.inv_l){
-                x_rev = -1 * x_rev;
-        }
-    }else{
-        // 角度の修正
-        rad = (float)kw_config.angle_r * 12.0 * (M_PI / 180.0) * -1.0;
-        x_rev =  + x_val * cos(rad) - y_val * sin(rad);
-        y_rev =  + x_val * sin(rad) + y_val * cos(rad);
+    rad = current_angle * 12.0f * (M_PI / 180.0f) * -1.0f;
+    x_rev = x_val * cosf(rad) - y_val * sinf(rad);
+    y_rev = x_val * sinf(rad) + y_val * cosf(rad);
 
-        // x軸反転処理
-        if(kw_config.inv_r){
-                x_rev = -1 * x_rev;
-        }
+    if(is_inv){
+        x_rev = -x_rev;
     }
+
+    // ドリフト防止の最終ダメ押し（非常に小さい値は0にする）
+    if (fabsf(x_rev) < 0.01f) x_rev = 0.0f;
+    if (fabsf(y_rev) < 0.01f) y_rev = 0.0f;
 
     joystick_set_axis(0, (int16_t)x_rev);
     joystick_set_axis(1, (int16_t)y_rev);
 
     return mouse_report;
 }
-
-
-
 // 実タスク
 report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
     // ジョイスティックの値
@@ -550,13 +509,13 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
         // 数値の取得
                 gp28_val = analogReadPin(GP28);
                 gp27_val = analogReadPin(GP27);
-                
+
                 // --- 修正箇所: デッドゾーン処理の適用 ---
                 int16_t temp_x_raw = gp28_val - gp28_newt;
                 int16_t temp_y_raw = gp27_val - gp27_newt;
                 int16_t temp_x_val = 0;
                 int16_t temp_y_val = 0;
-        
+
                 // X軸のデッドゾーン判定
                 if (abs(temp_x_raw) > joystick_offset_min) {
                     temp_x_val = (temp_x_raw > 0) ? (temp_x_raw - joystick_offset_min) : (temp_x_raw + joystick_offset_min);
@@ -566,20 +525,20 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
                     temp_y_val = (temp_y_raw > 0) ? (temp_y_raw - joystick_offset_min) : (temp_y_raw + joystick_offset_min);
                 }
                 // ---------------------------------------
-        
+
                 // 最大値最小値の更新（ここは生の値 gp28_val / gp27_val を使用）
                 if(gp28_val > gp28_max){
                     gp28_max = gp28_val;
                 }else if(gp28_val < gp28_min){
                     gp28_min = gp28_val;
                 }
-        
+
                 if(gp27_val > gp27_max){
                     gp27_max = gp27_val;
                 }else if(gp27_val < gp27_min){
                     gp27_min = gp27_val;
                 }
-        
+
                 // 計算された temp_x_val / temp_y_val を使用して座標変換
                 x_val_js = ( (float)temp_x_val / JOYSTICK_DIVISOR ) * amp_temp;
                 y_val_js = ( (float)temp_y_val / JOYSTICK_DIVISOR ) * amp_temp;
