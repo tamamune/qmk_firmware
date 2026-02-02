@@ -510,7 +510,7 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
                 gp28_val = analogReadPin(GP28);
                 gp27_val = analogReadPin(GP27);
 
-                // --- 修正箇所: デッドゾーン処理の適用 ---
+                // --- ジョイスティック側のドリフト対策 (アナログデッドゾーン) ---
                 int16_t temp_x_raw = gp28_val - gp28_newt;
                 int16_t temp_y_raw = gp27_val - gp27_newt;
                 int16_t temp_x_val = 0;
@@ -524,25 +524,27 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
                 if (abs(temp_y_raw) > joystick_offset_min) {
                     temp_y_val = (temp_y_raw > 0) ? (temp_y_raw - joystick_offset_min) : (temp_y_raw + joystick_offset_min);
                 }
-                // ---------------------------------------
 
-                // 最大値最小値の更新（ここは生の値 gp28_val / gp27_val を使用）
-                if(gp28_val > gp28_max){
-                    gp28_max = gp28_val;
-                }else if(gp28_val < gp28_min){
-                    gp28_min = gp28_val;
-                }
+                // 最大値最小値の更新（ここも少し遊びを持たせる）
+                if(gp28_val > gp28_max) gp28_max = gp28_val;
+                else if(gp28_val < gp28_min) gp28_min = gp28_val;
+                if(gp27_val > gp27_max) gp27_max = gp27_val;
+                else if(gp27_val < gp27_min) gp27_min = gp27_val;
 
-                if(gp27_val > gp27_max){
-                    gp27_max = gp27_val;
-                }else if(gp27_val < gp27_min){
-                    gp27_min = gp27_val;
-                }
-
-                // 計算された temp_x_val / temp_y_val を使用して座標変換
+                // 計算された値を使用
                 x_val_js = ( (float)temp_x_val / JOYSTICK_DIVISOR ) * amp_temp;
                 y_val_js = ( (float)temp_y_val / JOYSTICK_DIVISOR ) * amp_temp;
             }
+
+    // --- トラックボール側のドリフト対策 (生値のカット) ---
+        // PMW33xxなどのセンサーが吐き出す微小な「1」カウントのノイズを消去します
+        #define TRACKBALL_DEADZONE 1 // 1〜2程度が推奨
+
+        if (abs(left_report.x) <= TRACKBALL_DEADZONE) left_report.x = 0;
+        if (abs(left_report.y) <= TRACKBALL_DEADZONE) left_report.y = 0;
+        if (abs(right_report.x) <= TRACKBALL_DEADZONE) right_report.x = 0;
+        if (abs(right_report.y) <= TRACKBALL_DEADZONE) right_report.y = 0;
+
     // マウスの数値はそのまま使う
     float x_val_l = 0.0;
     float y_val_l = 0.0;
