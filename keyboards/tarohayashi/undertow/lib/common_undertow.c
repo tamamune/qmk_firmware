@@ -14,6 +14,10 @@ joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     JOYSTICK_AXIS_VIRTUAL
 };
 
+// ドリフト防止用の定数
+#define TRACKBALL_DEADZONE 1      // センサーの生値がこの値以下なら無視
+#define SMOOTHING_CUTOFF   0.05f  // 計算後の微小な移動量を0にするしきい値
+
 /* ポインティングデバイス用変数 */
 ut_config_t ut_config;         // eeprom保存用
 bool force_scrolling, force_cursoring, force_key_input, force_gaming, slow_mode;          // 一時的モード変更用
@@ -215,6 +219,9 @@ void pointing_device_init_kb(void){
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
     /* SIDE0 */
+    // ---【追加】生値のデッドゾーン処理 ---
+        if (abs(mouse_report.x) <= TRACKBALL_DEADZONE) mouse_report.x = 0;
+        if (abs(mouse_report.y) <= TRACKBALL_DEADZONE) mouse_report.y = 0;
     // 数値取得、角度、反転処理
     float rad = (float)ut_config.angle_0 * 12.0 * (M_PI / 180.0) * -1.0;
     float x_rev_0 =  + mouse_report.x * cos(rad) - mouse_report.y * sin(rad);
@@ -224,8 +231,11 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
     float smoothed_x_0 = prev_x_0 * SMOOTHING_FACTOR + x_rev_0 * (1.0 - SMOOTHING_FACTOR);
     float smoothed_y_0 = prev_y_0 * SMOOTHING_FACTOR + y_rev_0 * (1.0 - SMOOTHING_FACTOR);
-    prev_x_0 = smoothed_x_0;
-    prev_y_0 = smoothed_y_0;
+    // ---【修正】微小な値をカットして prev を更新 ---
+        if (fabsf(smoothed_x_0) < SMOOTHING_CUTOFF) { smoothed_x_0 = 0; prev_x_0 = 0; }
+        else { prev_x_0 = smoothed_x_0; }
+        if (fabsf(smoothed_y_0) < SMOOTHING_CUTOFF) { smoothed_y_0 = 0; prev_y_0 = 0; }
+        else { prev_y_0 = smoothed_y_0; }
 
     // 動作量で移動量を変える
     float movement_magnitude_0 = sqrt(smoothed_x_0 * smoothed_x_0 + smoothed_y_0 * smoothed_y_0);
@@ -300,6 +310,10 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     /* SIDE1 */
     // 数値取得、角度、反転処理
     pmw33xx_report_t report = pmw33xx_read_burst(1);
+    // ---【追加】生値のデッドゾーン処理 ---
+        if (abs(report.delta_x) <= TRACKBALL_DEADZONE) report.delta_x = 0;
+        if (abs(report.delta_y) <= TRACKBALL_DEADZONE) report.delta_y = 0;
+
     rad = (float)ut_config.angle_1 * 12.0 * (M_PI / 180.0) * -1.0;
     float x_rev_1 =  + report.delta_x * cos(rad) - report.delta_y * sin(rad);
     float y_rev_1 =  + report.delta_x * sin(rad) + report.delta_y * cos(rad);
@@ -308,8 +322,11 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
     float smoothed_x_1 = prev_x_1 * SMOOTHING_FACTOR + x_rev_1 * (1.0 - SMOOTHING_FACTOR);
     float smoothed_y_1 = prev_y_1 * SMOOTHING_FACTOR + y_rev_1 * (1.0 - SMOOTHING_FACTOR);
-    prev_x_1 = smoothed_x_1;
-    prev_y_1 = smoothed_y_1;
+    // ---【修正】微小な値をカットして prev を更新 ---
+        if (fabsf(smoothed_x_1) < SMOOTHING_CUTOFF) { smoothed_x_1 = 0; prev_x_1 = 0; }
+        else { prev_x_1 = smoothed_x_1; }
+        if (fabsf(smoothed_y_1) < SMOOTHING_CUTOFF) { smoothed_y_1 = 0; prev_y_1 = 0; }
+        else { prev_y_1 = smoothed_y_1; }
 
     // 動作量で移動量を変える
     float movement_magnitude_1 = sqrt(smoothed_x_1 * smoothed_x_1 + smoothed_y_1 * smoothed_y_1);
