@@ -336,68 +336,71 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     float y_val = 0.0;
     int16_t gp28_val = 0;
     int16_t gp27_val = 0;
-    // ジョイスティックの場合は定期的に値を取り出す
-    if(joystick_attached){
-        float amp_temp = 1.0;
-        // amprifier値決定
-        if(slow_mode){
-            amp_temp = AMP_SLOW;
-        }else{
-            amp_temp = 4.0 + (float)kw_config.spd * 3.0;
-        }
-        switch (kw_config.pd_mode){
-            case KEY_INPUT:
-                amp_temp = amp_temp / 10;
-                break;
-            case CURSOR_MODE:
-                amp_temp = amp_temp / 20;
-                break;
-            case SCROLL_MODE:
-                amp_temp = amp_temp / 50;
-                break;
-        }
 
-        // 数値補正
-        gp28_val = analogReadPin(GP28);
-        gp27_val = analogReadPin(GP27);
-        int16_t js_x_val = gp28_val - gp28_newt;
-        int16_t js_y_val = gp27_val - gp27_newt;
 
-        // 最大値最小値の更新
-        if(gp28_val > gp28_max){
-            gp28_max = gp28_val;
-        }else if(gp28_val < gp28_min){
-            gp28_min = gp28_val;
-        }
+    // --- ドリフト対策用定数 ---
+        #define TRACKBALL_DEADZONE 1  // マウスの1ピクセル移動を無視（1〜2で調整）
+        #define JS_SMOOTH_CUTOFF 0.01f // ジョイスティック計算後の微小値をカット
 
-        if(gp27_val > gp27_max){
-            gp27_max = gp27_val;
-        }else if(gp27_val < gp27_min){
-            gp27_min = gp27_val;
-        }
+        // ジョイスティックの場合は定期的に値を取り出す
+            if(joystick_attached){
+                float amp_temp = 1.0;
+                // (amp_temp の計算ロジックは変更なし)
+                if(slow_mode){
+                    amp_temp = AMP_SLOW;
+                }else{
+                    amp_temp = 4.0 + (float)kw_config.spd * 3.0;
+                }
+                switch (kw_config.pd_mode){
+                    case KEY_INPUT:   amp_temp /= 10; break;
+                    case CURSOR_MODE: amp_temp /= 20; break;
+                    case SCROLL_MODE: amp_temp /= 50; break;
+                }
 
-        if(abs(js_x_val) < joystick_offset_min){
-                    js_x_val = 0;
+                gp28_val = analogReadPin(GP28);
+                gp27_val = analogReadPin(GP27);
+
+                // 偏差の計算
+                int16_t js_x_raw = gp28_val - gp28_newt;
+                int16_t js_y_raw = gp27_val - gp27_newt;
+
+                // 最大最小更新
+                if(gp28_val > gp28_max) gp28_max = gp28_val;
+                else if(gp28_val < gp28_min) gp28_min = gp28_val;
+                if(gp27_val > gp27_max) gp27_max = gp27_val;
+                else if(gp27_val < gp27_min) gp27_min = gp27_val;
+
+                // 【修正】ジョイスティックのデッドゾーンと蓄積クリア
+                if(abs(js_x_raw) < joystick_offset_min){
                     x_val = 0.0f;
-                    x_accumulator = 0; // 中心にいる時は蓄積をクリア
+                    x_accumulator = 0; // 静止時は端数を捨てる
+                } else {
+                    // 閾値を超えた分だけを計算に回す（スムーズな動き出し）
+                    int16_t adjusted_x = (js_x_raw > 0) ? (js_x_raw - joystick_offset_min) : (js_x_raw + joystick_offset_min);
+                    x_val = ( (float)adjusted_x / JOYSTICK_DIVISOR ) * amp_temp;
                 }
-                if(abs(js_y_val) < joystick_offset_min){
-                    js_y_val = 0;
+
+                if(abs(js_y_raw) < joystick_offset_min){
                     y_val = 0.0f;
-                    y_accumulator = 0; // 中心にいる時は蓄積をクリア
+                    y_accumulator = 0; // 静止時は端数を捨てる
+                } else {
+                    int16_t adjusted_y = (js_y_raw > 0) ? (js_y_raw - joystick_offset_min) : (js_y_raw + joystick_offset_min);
+                    y_val = ( (float)adjusted_y / JOYSTICK_DIVISOR ) * amp_temp;
                 }
 
-                x_val = ( (float)js_x_val / JOYSTICK_DIVISOR ) * amp_temp;
-                y_val = ( (float)js_y_val / JOYSTICK_DIVISOR ) * amp_temp;
+                // 計算誤差のカット
+                if (fabsf(x_val) < JS_SMOOTH_CUTOFF) x_val = 0.0f;
+                if (fabsf(y_val) < JS_SMOOTH_CUTOFF) y_val = 0.0f;
 
-                // 【追加】完全に静止させるための閾値処理 (ノイズ対策)
-                if (fabsf(x_val) < 0.01f) x_val = 0.0f;
-                if (fabsf(y_val) < 0.01f) y_val = 0.0f;
-    // マウスの時は数値はそのまま使う
-    }else{
-        x_val = (float)mouse_report.x;
-        y_val = (float)mouse_report.y;
-    }
+            // マウスの時は数値はそのまま使う
+            }else{
+                // 【修正】マウスの生値に対するデッドゾーン（ドリフト防止の肝）
+                if (abs(mouse_report.x) <= TRACKBALL_DEADZONE) mouse_report.x = 0;
+                if (abs(mouse_report.y) <= TRACKBALL_DEADZONE) mouse_report.y = 0;
+
+                x_val = (float)mouse_report.x;
+                y_val = (float)mouse_report.y;
+            }
     // 角度補正
     float rad = (float)kw_config.angle * 6.0 * (M_PI / 180.0) * -1.0;
     float x_rev =  + x_val * cos(rad) - y_val * sin(rad);
