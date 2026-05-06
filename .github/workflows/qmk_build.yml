@@ -12,17 +12,21 @@ jobs:
     container: qmkfm/qmk_cli
     steps:
       - name: Checkout
-        uses: actions/checkout@v4 # v3 から v4 に修正
+        uses: actions/checkout@v4
         with:
+          # ここが重要：履歴をすべて取得しないとQMKのビルドシステムが壊れることがあります
+          fetch-depth: 0
           submodules: recursive
 
       - name: Build firmware
         run: |
-          qmk setup -y
-          qmk compile -kb tarohayashi/killerwhale/duo -km test
+          # エラーが出やすい setup ではなく、直接必要なサブモジュールだけ更新を試みる
+          git config --global --add safe.directory /__w/qmk_firmware/qmk_firmware
+          make git-submodule
+          qmk compile -kb tarohayashi/killerwhale/duo -km default
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4 # v3 から v4 に修正
+        uses: actions/upload-artifact@v4
         with:
           name: killerwhale-firmware
           path: ./*.uf2
