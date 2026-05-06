@@ -182,20 +182,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(_______, _______)
     }
 };
-
-void rgb_matrix_indicators_user(void) {
-    switch (get_highest_layer(layer_state)) {
-        case 1: // レイヤー1 (例: Raise)
-            rgb_matrix_set_color_all(255, 0, 0); // 赤
-            break;
-        case 2: // レイヤー2 (例: Lower)
-            rgb_matrix_set_color_all(0, 255, 0); // 緑
-            break;
-        case 3: // レイヤー3 (例: Adjust)
-            rgb_matrix_set_color_all(0, 0, 255); // 青
-            break;
-        default:
-            // 0番（基本レイヤー）は通常のアニメーション
-            break;
-    }
-}
