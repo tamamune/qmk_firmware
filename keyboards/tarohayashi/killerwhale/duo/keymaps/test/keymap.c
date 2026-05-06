@@ -185,37 +185,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 // --- ここから追加 ---
 void rgb_matrix_indicators_user(void) {
-    switch (get_highest_layer(layer_state)) {
-        case ONOFF: // レイヤー1
-            rgb_matrix_set_color_all(100, 149, 237); // Cornflowerblue
-            break;
-        case OFFON: // レイヤー2
-            rgb_matrix_set_color_all(0, 255, 0); // 緑
-            break;
-        case ONON: // レイヤー3
-            rgb_matrix_set_color_all(0, 0, 255); // 青
-            break;
-        case LOWER: // レイヤー4
-            rgb_matrix_set_color_all(0, 0, 255); // 青
-            break;
-        case UPPER: // レイヤー5
-            rgb_matrix_set_color_all(0, 0, 255); // 青
-            break;
-        case UTIL: // レイヤー6
-            rgb_matrix_set_color_all(0, 0, 255); // 青
-            break;
-        case MOUSE: // レイヤー7
-            rgb_matrix_set_color_all(124, 252, 0); // Lawngreen
-            break;
-        case BALL_SETTINGS: // レイヤー8
-            rgb_matrix_set_color_all(0, 255, 255); // aqua
-            break;
-        case MISC: // レイヤー9
-            rgb_matrix_set_color_all(0, 0, 255); // Blue
-            break;
-        default: // BASE (レイヤー0) 
-            // 何もしない（設定したアニメーションが流れる）
-            break;
-    }
+    // テスト：どんな状態でも全キーを「真っ赤」にする
+    rgb_matrix_set_color_all(255, 0, 0); 
 }
 // --- ここまで追加 ---
