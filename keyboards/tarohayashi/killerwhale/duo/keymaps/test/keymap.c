@@ -207,13 +207,13 @@ void rgb_matrix_indicators_user(void) {
         case 6: // レイヤー6
             rgb_matrix_set_color_all(0, 0, 255); // 青
             break;
-        case 7: // レイヤー7
-            rgb_matrix_set_color_all(0, 0, 255); // 青
+        case 7: // レイヤー7 MOUSE
+            rgb_matrix_set_color_all(124, 252, 0); // Lawngreen
             break;
-        case 8: // レイヤー8
-            rgb_matrix_set_color_all(0, 0, 255); // 青
+        case 8: // レイヤー8 BALL_SETTINGS
+            rgb_matrix_set_color_all(0, 255, 255); // aqua
             break;
-        case 9: // レイヤー9
+        case 9: // レイヤー9 MISC
             rgb_matrix_set_color_all(0, 0, 255); // Blue
             break;
     }
