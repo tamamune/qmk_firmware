@@ -1,0 +1,28 @@
+name: Build KillerWhale Firmware
+
+on:
+  push:
+    branches:
+      - tarohayashi # ここを自分の作業ブランチ名にする
+  workflow_dispatch: # これを入れるとボタンで手動実行できるようになります
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: qmkfm/qmk_cli
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build firmware
+        run: |
+          qmk setup -y
+          qmk compile -kb tarohayashi/killerwhale/duo -km default
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: killerwhale-firmware
+          path: ./*.uf2 # .hex の場合は ./*.hex に変更
