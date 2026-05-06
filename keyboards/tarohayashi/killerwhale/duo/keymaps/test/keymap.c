@@ -190,31 +190,31 @@ void rgb_matrix_indicators_user(void) {
             // レイヤー0（デフォルト）は何もしない（設定したアニメーションが流れる）
             break;
         case 1: // レイヤー1
-            rgb_matrix_set_color_all(100, 149, 237); // Cornflowerblue
+            rgb_matrix_set_color_all(100,149,237); // Cornflowerblue
             break;
         case 2: // レイヤー2
-            rgb_matrix_set_color_all(0, 255, 0); // 緑
+            rgb_matrix_set_color_all(0,255,0); // 緑
             break;
         case 3: // レイヤー3
-            rgb_matrix_set_color_all(0, 0, 255); // 青
+            rgb_matrix_set_color_all(0,0,255); // 青
             break;
         case 4: // レイヤー4
-            rgb_matrix_set_color_all(0, 0, 255); // 青
+            rgb_matrix_set_color_all(0,0,255); // 青
             break;
         case 5: // レイヤー5
-            rgb_matrix_set_color_all(0, 0, 255); // 青
+            rgb_matrix_set_color_all(0,0,255); // 青
             break;
         case 6: // レイヤー6
-            rgb_matrix_set_color_all(0, 0, 255); // 青
+            rgb_matrix_set_color_all(0,0,255); // 青
             break;
         case 7: // レイヤー7 MOUSE
-            rgb_matrix_set_color_all(124, 252, 0); // Lawngreen
+            rgb_matrix_set_color_all(124,252,0); // Lawngreen
             break;
         case 8: // レイヤー8 BALL_SETTINGS
-            rgb_matrix_set_color_all(0, 255, 255); // aqua
+            rgb_matrix_set_color_all(0,255,255); // aqua
             break;
         case 9: // レイヤー9 MISC
-            rgb_matrix_set_color_all(0, 0, 255); // Blue
+            rgb_matrix_set_color_all(0,0,255); // Blue
             break;
     }
 }
