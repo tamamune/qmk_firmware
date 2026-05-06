@@ -182,3 +182,40 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(_______, _______)
     }
 };
+
+// --- ここから追加 ---
+void rgb_matrix_indicators_user(void) {
+    switch (get_highest_layer(layer_state)) {
+        default: // レイヤー0
+            // レイヤー0（デフォルト）は何もしない（設定したアニメーションが流れる）
+            break;
+        case 1: // レイヤー1
+            rgb_matrix_set_color_all(255, 0, 0); // 赤
+            break;
+        case 2: // レイヤー2
+            rgb_matrix_set_color_all(0, 255, 0); // 緑
+            break;
+        case 3: // レイヤー3
+            rgb_matrix_set_color_all(0, 0, 255); // 青
+            break;
+        case 4: // レイヤー4
+            rgb_matrix_set_color_all(0, 0, 255); // 青
+            break;
+        case 5: // レイヤー5
+            rgb_matrix_set_color_all(0, 0, 255); // 青
+            break;
+        case 6: // レイヤー6
+            rgb_matrix_set_color_all(0, 0, 255); // 青
+            break;
+        case 7: // レイヤー7
+            rgb_matrix_set_color_all(0, 0, 255); // 青
+            break;
+        case 8: // レイヤー8
+            rgb_matrix_set_color_all(0, 0, 255); // 青
+            break;
+        case 9: // レイヤー9
+            rgb_matrix_set_color_all(0, 0, 255); // Blue
+            break;
+    }
+}
+// --- ここまで追加 ---
