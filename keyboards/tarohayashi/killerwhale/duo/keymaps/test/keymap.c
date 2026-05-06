@@ -190,7 +190,7 @@ void rgb_matrix_indicators_user(void) {
             // レイヤー0（デフォルト）は何もしない（設定したアニメーションが流れる）
             break;
         case 1: // レイヤー1
-            rgb_matrix_set_color_all(255, 0, 0); // 赤
+            rgb_matrix_set_color_all(100, 149, 237); // Cornflowerblue
             break;
         case 2: // レイヤー2
             rgb_matrix_set_color_all(0, 255, 0); // 緑
