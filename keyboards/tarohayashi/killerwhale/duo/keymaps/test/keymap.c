@@ -182,10 +182,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(_______, _______)
     }
 };
-
-// --- ここから追加 ---
-void rgb_matrix_indicators_user(void) {
-    // テスト：どんな時でも、とにかく全部「赤」にする
-    rgb_matrix_set_color_all(255, 0, 0); 
-}
-// --- ここまで追加 ---
