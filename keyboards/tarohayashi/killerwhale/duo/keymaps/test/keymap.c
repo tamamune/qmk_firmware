@@ -176,6 +176,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+// -------------------------------------------------------------------
+
+// タップダンスの識別子を定義
+enum {
+    TD_ESC_GRAVE = 0
+};
+
+// タップダンスの内容を定義
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // 1回タップでKC_ESC、2回タップでKC_GRAVE（全角/半角）
+    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE)
+};
+
+// -------------------------------------------------------------------
+
 // コンボの名前を決める（名前は何でもOKです）
 enum combos {
     CMB_ENTER,
@@ -191,6 +206,8 @@ combo_t key_combos[] = {
     [CMB_ENTER] = COMBO(enter_combo, KC_ENT), // JとKの同時押しで Enter
     [CMB_ESC]   = COMBO(esc_combo, KC_ESC),   // DとFの同時押しで Esc
 };
+
+// -------------------------------------------------------------------
 
 // ロータリーエンコーダーの設定
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
