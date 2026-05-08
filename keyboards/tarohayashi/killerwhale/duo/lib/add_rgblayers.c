@@ -5,8 +5,8 @@
 #include "lib/common_killerwhale.h"
 
 // レイヤーごとの発光場所、発光色の設定
-const rgblight_segment_t PROGMEM base_layer[] = RGBLIGHT_LAYER_SEGMENTS( { 0, 0, HSV_AZURE} );
-const rgblight_segment_t PROGMEM onoff_layer[] = RGBLIGHT_LAYER_SEGMENTS( { 0, 66, HSV_CHARTREUSE} );
+const rgblight_segment_t PROGMEM base_layer[] = RGBLIGHT_LAYER_SEGMENTS( { 0, 0, HSV_PINK } );
+const rgblight_segment_t PROGMEM onoff_layer[] = RGBLIGHT_LAYER_SEGMENTS( { 0, 66, HSV_BLUE} );
 const rgblight_segment_t PROGMEM offon_layer[] = RGBLIGHT_LAYER_SEGMENTS( { 0, 66, HSV_MAGENTA} );
 const rgblight_segment_t PROGMEM onon_layer[] = RGBLIGHT_LAYER_SEGMENTS( { 0, 66, HSV_GREEN} );
 const rgblight_segment_t PROGMEM lower_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 66, HSV_BLUE} );
