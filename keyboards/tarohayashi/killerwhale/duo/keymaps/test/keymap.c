@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         KC_SPACE, KC_ENT,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT         L_CHMOD,
+        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
         // 追加スイッチ                       // トグルスイッチ
         MO(LOWER), MO(UPPER),                MO(ONOFF),
 
