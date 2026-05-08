@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SPACE, KC_LNG1,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
         // 追加スイッチ                      // トグルスイッチ
-        MS_BTN1, MS_BTN2,                    MO(OFFON),
+        MS_BTN1, MS_BTN2,                    MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
         // 左手
