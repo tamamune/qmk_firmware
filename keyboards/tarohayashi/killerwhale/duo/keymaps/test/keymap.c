@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,         KC_W, KC_E, KC_R, KC_T,
         CMD_CTL, KC_A,         KC_S, KC_D, KC_F, KC_G,
                  LSFT_T(KC_Z), KC_X,       KC_C, KC_V, LT(ONOFF,KC_B),
-                                      MOD_SCRL,
+                                      KC_LWIN,
         // 側面スイッチ
         KC_SPACE, KC_ENT,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
@@ -54,8 +54,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // 右手
         KC_6, LT(BALL_SETTINGS, KC_7), KC_8, KC_9, KC_0, KC_BSPC,
-        KC_Y, KC_U,    KC_I,   KC_O,     KC_P,  KC_MINUS,
-        KC_H, KC_J,    KC_K,   KC_L,  KC_SCLN, KC_RSFT,
+        KC_Y, KC_U,    KC_I,   KC_O,     KC_P,  KC_ENT,
+        KC_H, KC_J,    KC_K,   KC_L,  KC_SCLN, KC_MINUS,
         LT(ONOFF,KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH,
                                      MOD_SCRL,
         // 側面スイッチ
@@ -79,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // 右手
           KC_F6,   KC_F7,   KC_F8,    KC_F9,  KC_F10, _______,
-        _______, _______,   KC_UP,   KC_F11,  KC_F12, _______,
-        _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
-        _______, _______, _______,  _______, _______,
+         KC_F11,  KC_F12,   KC_UP,  _______, _______, _______,
+        _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_SCLN, KC_SLSH,
+        _______, _______, KC_LBRC,  KC_RBRC, KC_BSLS,
                                            _______,
         // 側面スイッチ
         _______, _______,
