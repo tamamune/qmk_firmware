@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                            _______,
 
         // 右手
-          KC_F6,   KC_F7,   KC_F8,    KC_F9,  KC_F10, _______,
+          KC_F6,   KC_F7,   KC_F8,    KC_F9,  KC_F10, KC_PSCR,
          KC_F11,  KC_F12,   KC_UP,  _______, _______, _______,
         _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_SCLN, KC_SLSH,
         _______, _______, KC_LBRC,  KC_RBRC, KC_BSLS,
