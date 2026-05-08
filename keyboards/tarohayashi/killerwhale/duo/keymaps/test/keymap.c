@@ -45,8 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CMD_CTL, KC_A,         KC_S, KC_D, KC_F, KC_G,
                  LSFT_T(KC_Z), KC_X,       KC_C, KC_V, KC_B,
                                       MOD_SCRL,
+        // 側面スイッチ
         KC_LNG2, KC_SPC,
+        // 十字キーorジョイスティック                // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
+        // 追加スイッチ                       // トグルスイッチ
         MS_BTN2, MS_BTN1,                    MO(ONOFF),
 
         // 右手
