@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_H
 #include "lib/add_keycodes.h"
-#define COMBO_TERM 30 // コンボのタイミング 30ミリ秒以内に同時押ししないと発動しない
 
 // レイヤー名
 enum layer_number {
