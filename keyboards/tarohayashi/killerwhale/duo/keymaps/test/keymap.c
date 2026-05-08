@@ -12,7 +12,7 @@ enum layer_number {
     MOUSE, BALL_SETTINGS, MISC // 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
-// 2. タップダンスの設定
+// 2. タップダンスの設定 KC_ZKHK KC_GRV KC_GRAVE
 // 型名を qk_tap_dance_action_t から tap_dance_action_t に修正しました
 enum {
     TD_ESC_GRAVE = 0
