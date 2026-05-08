@@ -33,7 +33,7 @@ const uint16_t PROGMEM space_combo[]   = {KC_D, KC_F, COMBO_END};
 
 combo_t key_combos[] = {
     [CMB_ENTER] = COMBO(enter_combo, KC_ENT),
-    [CMB_SPACE]   = COMBO(esc_combo, KC_SPACE),
+    [CMB_SPACE]   = COMBO(space_combo, KC_SPACE),
 };
 
 // 4. キーマップの設定
