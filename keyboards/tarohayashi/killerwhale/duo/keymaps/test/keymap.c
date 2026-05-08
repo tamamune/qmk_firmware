@@ -48,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         KC_SPACE, KC_ENT,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
-        // 追加スイッチ                       // トグルスイッチ
+        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD, // ←★ここのカンマ(,)を足しました！
+        // 追加スイッチ                      // トグルスイッチ
         MO(LOWER), MO(UPPER),                MO(ONOFF),
 
         // 右手
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         KC_SPACE, KC_ENT,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         MO(UTIL), MO(MOUSE),                 MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______,
 
         // 右手
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                    MO(ONON)
     ),
     [OFFON] = LAYOUT(
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                    MO(ONON),
 
         // 右手
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______
     ),
     [ONON] = LAYOUT(
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______,
 
         // 右手
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______
     ),
     [MOUSE] = LAYOUT(
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______,
 
         // 右手
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______
     ),
     [BALL_SETTINGS] = LAYOUT(
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         XXXXXXX, INV_SCRL,                           XXXXXXX,
 
         // 右手
@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         XXXXXXX, XXXXXXX,                            XXXXXXX
     ),
     [MISC] = LAYOUT(
@@ -199,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______,
 
         // 右手
@@ -211,7 +211,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                       // トグルスイッチ
+        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______
     )
 };
