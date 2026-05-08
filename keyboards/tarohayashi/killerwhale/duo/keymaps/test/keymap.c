@@ -3,6 +3,7 @@
 
 #include QMK_KEYBOARD_H
 #include "lib/add_keycodes.h"
+#define COMBO_TERM 30 // コンボのタイミング 30ミリ秒以内に同時押ししないと発動しない
 
 // レイヤー名
 enum layer_number {
@@ -176,6 +177,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+// コンボの名前を決める（名前は何でもOKです）
+enum combos {
+    CMB_ENTER,
+    CMB_ESC,
+};
+
+// 同時押しするキーの組み合わせを作る（必ず最後に COMBO_END をつけます）
+const uint16_t PROGMEM enter_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM esc_combo[]   = {KC_D, KC_F, COMBO_END};
+
+// 組み合わせと、実際に出力したいキーを紐づける
+combo_t key_combos[] = {
+    [CMB_ENTER] = COMBO(enter_combo, KC_ENT), // JとKの同時押しで Enter
+    [CMB_ESC]   = COMBO(esc_combo, KC_ESC),   // DとFの同時押しで Esc
+};
+
+// ロータリーエンコーダーの設定
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [BASE] =   {
         ENCODER_CCW_CW(KC_ESC, KC_TAB),
