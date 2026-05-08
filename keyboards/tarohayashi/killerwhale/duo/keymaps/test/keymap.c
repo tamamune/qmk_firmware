@@ -12,13 +12,13 @@ enum layer_number {
     MOUSE, BALL_SETTINGS, MISC // 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
-// 2. タップダンスの設定 (キーマップより上に書くのが安全です)
+// 2. タップダンスの設定
+// 型名を qk_tap_dance_action_t から tap_dance_action_t に修正しました
 enum {
     TD_ESC_GRAVE = 0
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // 1回タップでKC_ESC、2回タップでKC_GRAVE（全角/半角）
+tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE)
 };
 
@@ -32,25 +32,21 @@ const uint16_t PROGMEM enter_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM esc_combo[]   = {KC_D, KC_F, COMBO_END};
 
 combo_t key_combos[] = {
-    [CMB_ENTER] = COMBO(enter_combo, KC_ENT), // JとKの同時押しで Enter
-    [CMB_ESC]   = COMBO(esc_combo, KC_ESC),   // DとF의同時押しで Esc
+    [CMB_ENTER] = COMBO(enter_combo, KC_ENT),
+    [CMB_ESC]   = COMBO(esc_combo, KC_ESC),
 };
 
 // 4. キーマップの設定
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
         // 左手
-        // 天面スイッチ
         TD(TD_ESC_GRAVE), KC_1, KC_2, KC_3, KC_4, KC_5,
         KC_TAB,  KC_Q,         KC_W, KC_E, KC_R, KC_T,
         CMD_CTL, KC_A,         KC_S, KC_D, KC_F, KC_G,
                  LSFT_T(KC_Z), KC_X,       KC_C, KC_V, KC_B,
                                       MOD_SCRL,
-        // 側面スイッチ
         KC_LNG2, KC_SPC,
-        // 十字キーorジョイスティック
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
-        // 追加スイッチ
         MS_BTN2, MS_BTN1,                    MO(ONOFF),
 
         // 右手
@@ -59,14 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_H, KC_J, KC_K,    LT(MOUSE, KC_L),  KC_SCLN, KC_RSFT,
         KC_N, KC_M, KC_COMM, KC_DOT,           KC_SLSH,
                                      MOD_SCRL,
-        // 側面スイッチ
         KC_SPACE, KC_LNG1,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
-        // 追加スイッチ
         MS_BTN1, MS_BTN2,                    MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
-        // 左手
         _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
@@ -76,7 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______,          _______,
         _______, _______,                            _______,
 
-        // 右手
           KC_F6,   KC_F7,   KC_F8,    KC_F9,  KC_F10, _______,
         _______, _______,   KC_UP,   KC_F11,  KC_F12, _______,
         _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
@@ -87,7 +79,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                    MO(ONON)
     ),
     [OFFON] = LAYOUT(
-        // 左手
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
@@ -97,7 +88,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______,          _______,
         _______, _______,                    MO(ONON),
 
-        // 右手
         _______, _______, _______, KC_NUM_LOCK,    KC_KP_SLASH, _______,
         _______, KC_KP_7, KC_KP_8,     KC_KP_9, KC_KP_ASTERISK, _______,
         _______, KC_KP_4, KC_KP_5,     KC_KP_6,    KC_KP_MINUS, _______,
@@ -108,7 +98,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                            _______
     ),
     [ONON] = LAYOUT(
-        // 左手
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
@@ -118,7 +107,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______,          _______,
         _______, _______,                            _______,
 
-        // 右手
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
@@ -129,7 +117,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                            _______
     ),
     [MOUSE] = LAYOUT(
-        // 左手
         _______, _______, _______, _______, _______,    _______,
         _______, _______, _______, _______, _______,    _______,
         _______, _______, _______, MS_BTN2, MS_BTN1, MOD_SCRL,
@@ -138,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,
         _______, _______, _______, _______,          _______,
         _______, _______,                            _______,
-        // 右手
+
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
         MOD_SCRL, MS_BTN1, MS_BTN2, _______, _______, _______,
@@ -149,7 +136,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                            _______
     ),
     [BALL_SETTINGS] = LAYOUT(
-        // 左手
         QK_USER_15,    XXXXXXX, XXXXXXX, QK_USER_14, _______, L_CHMOD,
            XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, L_SPD_I, XXXXXXX,
         AUTO_MOUSE, XXXXXXX, XXXXXXX, L_ANG_D, L_INV,   L_ANG_I,
@@ -158,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         XXXXXXX, INV_SCRL,                           XXXXXXX,
-        // 右手
+
         R_CHMOD, _______, QK_USER_14, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, R_SPD_I,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         R_ANG_D, R_INV,   R_ANG_I, XXXXXXX, XXXXXXX, AUTO_MOUSE,
@@ -169,7 +155,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX,                            XXXXXXX
     ),
     [MISC] = LAYOUT(
-        // 左手
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
@@ -178,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,
         _______, _______, _______, _______,          _______,
         _______, _______,                            _______,
-        // 右手
+
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
@@ -190,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// 5. ロータリーエンコーダーの設定
+// 5. エンコーダーの設定
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [BASE] =   {
         ENCODER_CCW_CW(KC_ESC, KC_TAB),
