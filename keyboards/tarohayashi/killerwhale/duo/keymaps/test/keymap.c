@@ -136,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [BALL_SETTINGS] = LAYOUT(
         // 左手
-        XXXXXXX,    XXXXXXX, XXXXXXX, QK_USER_14, _______, L_CHMOD,
-        XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, L_SPD_I, XXXXXXX,
+        QK_USER_15,    XXXXXXX, XXXXXXX, QK_USER_14, _______, L_CHMOD,
+           XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, L_SPD_I, XXXXXXX,
         AUTO_MOUSE, XXXXXXX, XXXXXXX, L_ANG_D, L_INV,   L_ANG_I,
                     XXXXXXX, XXXXXXX,XXXXXXX, L_SPD_D, XXXXXXX,
                                      INV_SCRL,
