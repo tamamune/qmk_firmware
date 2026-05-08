@@ -54,9 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // 右手
         KC_6, LT(BALL_SETTINGS, KC_7), KC_8, KC_9, KC_0, KC_BSPC,
-        KC_Y, KC_U,    KC_I,   KC_O,     KC_P,  KC_ENT,
+        KC_Y, KC_U,    KC_I,   KC_O,     KC_P,  KC_MINUS,
         KC_H, KC_J,    KC_K,   KC_L,  KC_SCLN, KC_RSFT,
-        KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH,
+        LT(ONOFF,KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH,
                                      MOD_SCRL,
         // 側面スイッチ
         KC_SPACE, KC_ENT,
