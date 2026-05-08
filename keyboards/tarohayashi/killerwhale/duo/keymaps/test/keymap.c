@@ -22,18 +22,18 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE)
 };
 
-// 3. コンボの設定
+// 3. コンボの設定 ※追加時は「config.h」で個数を増やして
 enum combos {
     CMB_ENTER,
-    CMB_ESC,
+    CMB_SPACE,
 };
 
 const uint16_t PROGMEM enter_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM esc_combo[]   = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM space_combo[]   = {KC_D, KC_F, COMBO_END};
 
 combo_t key_combos[] = {
     [CMB_ENTER] = COMBO(enter_combo, KC_ENT),
-    [CMB_ESC]   = COMBO(esc_combo, KC_ESC),
+    [CMB_SPACE]   = COMBO(esc_combo, KC_SPACE),
 };
 
 // 4. キーマップの設定
