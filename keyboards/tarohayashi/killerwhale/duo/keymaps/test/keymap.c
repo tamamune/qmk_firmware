@@ -1,10 +1,10 @@
-// Copyright 2021 Hayashi (@w_vwbw)1
+// Copyright 2021 Hayashi (@w_vwbw)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 #include "lib/add_keycodes.h"
 
-// レイヤー名
+// 1. レイヤー名の定義
 enum layer_number {
     BASE = 0,
     ONOFF, OFFON, ONON,                       // トグルスイッチで変更するレイヤー
@@ -12,21 +12,45 @@ enum layer_number {
     MOUSE, BALL_SETTINGS, MISC // 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
-// キーマップの設定
+// 2. タップダンスの設定 (キーマップより上に書くのが安全です)
+enum {
+    TD_ESC_GRAVE = 0
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // 1回タップでKC_ESC、2回タップでKC_GRAVE（全角/半角）
+    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE)
+};
+
+// 3. コンボの設定
+enum combos {
+    CMB_ENTER,
+    CMB_ESC,
+};
+
+const uint16_t PROGMEM enter_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM esc_combo[]   = {KC_D, KC_F, COMBO_END};
+
+combo_t key_combos[] = {
+    [CMB_ENTER] = COMBO(enter_combo, KC_ENT), // JとKの同時押しで Enter
+    [CMB_ESC]   = COMBO(esc_combo, KC_ESC),   // DとF의同時押しで Esc
+};
+
+// 4. キーマップの設定
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,  KC_1,         KC_2, KC_3, KC_4, KC_5,
+        TD(TD_ESC_GRAVE), KC_1, KC_2, KC_3, KC_4, KC_5,
         KC_TAB,  KC_Q,         KC_W, KC_E, KC_R, KC_T,
         CMD_CTL, KC_A,         KC_S, KC_D, KC_F, KC_G,
                  LSFT_T(KC_Z), KC_X,       KC_C, KC_V, KC_B,
                                       MOD_SCRL,
         // 側面スイッチ
         KC_LNG2, KC_SPC,
-        // 十字キーorジョイスティック                // ジョイスティックスイッチ
+        // 十字キーorジョイスティック
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
-        // 追加スイッチ                      // トグルスイッチ
+        // 追加スイッチ
         MS_BTN2, MS_BTN1,                    MO(ONOFF),
 
         // 右手
@@ -38,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ
         KC_SPACE, KC_LNG1,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
-        // 追加スイッチ                      // トグルスイッチ
+        // 追加スイッチ
         MS_BTN1, MS_BTN2,                    MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
@@ -48,10 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
                                    _______,
-        // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______,
 
         // 右手
@@ -60,11 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
         _______, _______, _______,  _______, _______,
                                            _______,
-        // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                      // トグルスイッチ
-        _______, _______,                   MO(ONON)
+        _______, _______,                    MO(ONON)
     ),
     [OFFON] = LAYOUT(
         // 左手
@@ -73,11 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
                                    _______,
-        // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                      // トグルスイッチ
-        _______, _______,                   MO(ONON),
+        _______, _______,                    MO(ONON),
 
         // 右手
         _______, _______, _______, KC_NUM_LOCK,    KC_KP_SLASH, _______,
@@ -96,10 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
                                    _______,
-        // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______,
 
         // 右手
@@ -108,10 +124,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
                                            _______,
-        // 側面スイッチ
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                      // トグルスイッチ
         _______, _______,                            _______
     ),
     [MOUSE] = LAYOUT(
@@ -176,40 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// -------------------------------------------------------------------
-
-// タップダンスの識別子を定義
-enum {
-    TD_ESC_GRAVE = 0
-};
-
-// タップダンスの内容を定義
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // 1回タップでKC_ESC、2回タップでKC_GRAVE（全角/半角）
-    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE)
-};
-
-// -------------------------------------------------------------------
-
-// コンボの名前を決める（名前は何でもOKです）
-enum combos {
-    CMB_ENTER,
-    CMB_ESC,
-};
-
-// 同時押しするキーの組み合わせを作る（必ず最後に COMBO_END をつけます）
-const uint16_t PROGMEM enter_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM esc_combo[]   = {KC_D, KC_F, COMBO_END};
-
-// 組み合わせと、実際に出力したいキーを紐づける
-combo_t key_combos[] = {
-    [CMB_ENTER] = COMBO(enter_combo, KC_ENT), // JとKの同時押しで Enter
-    [CMB_ESC]   = COMBO(esc_combo, KC_ESC),   // DとFの同時押しで Esc
-};
-
-// -------------------------------------------------------------------
-
-// ロータリーエンコーダーの設定
+// 5. ロータリーエンコーダーの設定
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [BASE] =   {
         ENCODER_CCW_CW(KC_ESC, KC_TAB),
