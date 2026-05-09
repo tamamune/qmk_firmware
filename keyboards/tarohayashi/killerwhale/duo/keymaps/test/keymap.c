@@ -15,9 +15,9 @@ enum layer_number {
 // 2. タップダンスの設定 KC_ZKHK KC_GRV KC_GRAVE
 // 型名を qk_tap_dance_action_t から tap_dance_action_t に修正しました
 enum {
-    TD_ESC_GRAVE = 0
-    TD_RIGHT_J = 0
-    TD_LEFT_L = 2
+    TD_ESC_GRAVE = 0,
+    TD_RIGHT_J,
+    TD_LEFT_L
 };
 
 tap_dance_action_t tap_dance_actions[] = {
