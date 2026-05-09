@@ -57,11 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   KC_Y,           KC_U,    KC_I,   KC_O,    KC_P,   KC_ENT,
                   KC_H,           KC_J,    KC_K,   KC_L, KC_SCLN, KC_MINUS,
         LT(ONOFF,KC_N), LT(OFFON,KC_M), KC_COMM, KC_DOT, KC_SLSH,
-                                     MOD_SCRL,
-        // 側面スイッチ
+                                               MOD_SCRL,
+        // 側面スイッチ 下 上
         KC_ENT, KC_SPACE,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
-        // 追加スイッチ                      // トグルスイッチ
+        // 追加スイッチ 左 右                 // トグルスイッチ
         MO(UTIL), MO(MOUSE),                 MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
@@ -70,11 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
-                                   _______,
-        // 側面スイッチ
+                          _______,
+        // 側面スイッチ 上 下
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                      // トグルスイッチ
+        // 追加スイッチ 左 右                     // トグルスイッチ
         _______, _______,                            _______,
 
         // 右手
@@ -82,11 +82,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_F11,  KC_F12,   KC_UP,  _______, _______, _______,
         _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_SCLN, KC_SLSH,
         _______, _______, KC_LBRC,  KC_RBRC, KC_BSLS,
-                                           _______,
-        // 側面スイッチ
+　　　　　　　　　　　　　　　　　　　　_______,
+        // 側面スイッチ 下 上
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ                      // トグルスイッチ
+        // 追加スイッチ 左 右                  // トグルスイッチ
         _______, _______,                    MO(ONON)
     ),
     [OFFON] = LAYOUT(
