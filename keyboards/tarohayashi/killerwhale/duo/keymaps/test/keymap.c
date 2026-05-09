@@ -92,8 +92,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [OFFON] = LAYOUT(
         // 左手
         _______,    KC_F,       KC_P,    KC_UP,        KC_N,   KC_KB_VOLUME_UP,
-        _______, _______,    KC_LEFT, KC_SPACE,    KC_RIGHT,              KC_F,
-        _______, _______, C(KC_LEFT),  KC_DOWN, C(KC_RIGHT), KC_KB_VOLUME_DOWN,
+        _______,    KC_M,    KC_LEFT, KC_SPACE,    KC_RIGHT,              KC_F,
+        _______,    KC_C, C(KC_LEFT),  KC_DOWN, C(KC_RIGHT), KC_KB_VOLUME_DOWN,
                  _______, _______,  _______,  _______,           _______,
                           _______,
         // 側面スイッチ 上 下
