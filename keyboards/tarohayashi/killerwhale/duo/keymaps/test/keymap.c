@@ -16,7 +16,7 @@ enum layer_number {
 // 型名を qk_tap_dance_action_t から tap_dance_action_t に修正しました
 enum {
     TD_ESC_GRAVE = 0
-    TD_RIGHT_J = 1
+    TD_RIGHT_J = 0
     TD_LEFT_L = 2
 };
 
