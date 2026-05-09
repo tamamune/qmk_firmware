@@ -77,7 +77,8 @@
 // コンボのタイミング 30ミリ秒以内に同時押ししないと発動しない
 #define COMBO_TERM 30 
 
-
+// タップ時の長押しの判定
+#define PERMISSIVE_HOLD
 
 
 
