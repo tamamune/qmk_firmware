@@ -40,13 +40,13 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
         // 左手
-        TD(TD_ESC_GRAVE),      KC_1, KC_2, KC_3,           KC_4,           KC_5,
-                  KC_TAB,      KC_Q, KC_W, KC_E,           KC_R,           KC_T,
-                 CMD_CTL,      KC_A, KC_S, KC_D,           KC_F,           KC_G,
-                       LSFT_T(KC_Z), KC_X, KC_C, LT(OFFON,KC_V), LT(ONOFF,KC_B),
-                                  KC_LWIN,
+        TD(TD_ESC_GRAVE), KC_1,    KC_2, KC_3,           KC_4,           KC_5,
+                 KC_LSFT, KC_Q,    KC_W, KC_E,           KC_R,           KC_T,
+                 CMD_CTL, KC_A,    KC_S, KC_D,           KC_F,           KC_G,
+                          KC_Z,    KC_X, KC_C, LT(OFFON,KC_V), LT(ONOFF,KC_B),
+                                KC_LWIN,
         // 側面スイッチ 上 下
-        KC_SPACE, KC_ENT,
+        KC_SPACE, KC_TAB,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
         // 追加スイッチ 左 右                  // トグルスイッチ
@@ -79,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // 右手
           KC_F6,   KC_F7,   KC_F8,    KC_F9,  KC_F10, KC_PSCR,
-         KC_F11,  KC_F12,   KC_UP,  _______, _______, _______,
-        _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_SCLN, KC_SLSH,
-        _______, _______, KC_LBRC,  KC_RBRC, KC_BSLS,
+         KC_F11,  KC_F12,   KC_UP,  KC_QUOT,  KC_GRV, KC_NUHS,
+        _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_BSLS, KC_RSFT,
+        _______, _______, _______,  _______, KC_SLSH,
                                     _______,
         // 側面スイッチ 下 上
         _______, _______,
