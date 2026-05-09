@@ -49,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SPACE, KC_TAB,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
-        // 追加スイッチ 左 右                  // トグルスイッチ
-        MO(LOWER), MO(UPPER),                MO(ONOFF),
+        // 追加スイッチ 左 右                       // トグルスイッチ
+        MO(LOWER), MO(UPPER),                     MO(ONOFF),
 
         // 右手
                   KC_6,           KC_7,    KC_8,   KC_9,    KC_0, KC_MINS,
@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ 下 上
         KC_ENT, KC_SPACE,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
-        // 追加スイッチ 左 右                 // トグルスイッチ
-        MO(UTIL), MO(MOUSE),                 MO(OFFON)
+        // 追加スイッチ 左 右                        // トグルスイッチ
+        MO(UTIL), MO(MOUSE),                       MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
         // 左手
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ 上 下
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ 左 右                     // トグルスイッチ
+        // 追加スイッチ 左 右                         // トグルスイッチ
         _______, _______,                            _______,
 
         // 右手
@@ -86,14 +86,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 側面スイッチ 下 上
         _______, _______,
         _______, _______, _______, _______,          _______,
-        // 追加スイッチ 左 右                  // トグルスイッチ
-        _______, _______,                    MO(ONON)
+        // 追加スイッチ 左 右                         // トグルスイッチ
+        _______, _______,                           MO(ONON)
     ),
     [OFFON] = LAYOUT(
         // 左手
-        _______, _______,    KC_P,    KC_UP,     KC_P,   KC_KB_VOLUME_UP,
-        _______, _______, KC_LEFT, KC_SPACE, KC_RIGHT,              KC_F,
-        _______, _______, _______,  KC_DOWN,  _______, KC_KB_VOLUME_DOWN,
+        _______, _______,       KC_P,    KC_UP,        KC_N,   KC_KB_VOLUME_UP,
+        _______, _______,    KC_LEFT, KC_SPACE,    KC_RIGHT,              KC_F,
+        _______, _______, C(KC_LEFT),  KC_DOWN, C(KC_RIGHT), KC_KB_VOLUME_DOWN,
                  _______, _______,  _______,  _______,           _______,
                           _______,
         // 側面スイッチ 上 下
