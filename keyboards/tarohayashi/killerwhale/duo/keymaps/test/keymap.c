@@ -9,7 +9,7 @@ enum layer_number {
     BASE = 0,
     ONOFF, OFFON, ONON,                       // トグルスイッチで変更するレイヤー
     LOWER, UPPER, UTIL,                       // 長押しで変更するレイヤー
-    MOUSE, BALL_SETTINGS, MISC 　　　　　　　　// 自動マウスレイヤー切り替えや設定用のレイヤー
+    MOUSE, BALL_SETTINGS, MISC                // 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
 // 2. タップダンスの設定 KC_ZKHK KC_GRV KC_GRAVE
