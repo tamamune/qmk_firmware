@@ -9,15 +9,15 @@ enum layer_number {
     BASE = 0,
     ONOFF, OFFON, ONON,                       // トグルスイッチで変更するレイヤー
     LOWER, UPPER, UTIL,                       // 長押しで変更するレイヤー
-    MOUSE, BALL_SETTINGS, MISC // 自動マウスレイヤー切り替えや設定用のレイヤー
+    MOUSE, BALL_SETTINGS, MISC 　　　　　　　　// 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
 // 2. タップダンスの設定 KC_ZKHK KC_GRV KC_GRAVE
 // 型名を qk_tap_dance_action_t から tap_dance_action_t に修正しました
 enum {
-    TD_ESC_GRAVE = 0,
-    TD_RIGHT_J,
-    TD_LEFT_L
+    TD_ESC_GRAVE = 0,　　　　　　　　　　　　　// ESCと半角／全角
+    TD_RIGHT_J,                              // 右矢印とJ　YouTube用
+    TD_LEFT_L                                // 左矢印とL　YouTube用
 };
 
 tap_dance_action_t tap_dance_actions[] = {
