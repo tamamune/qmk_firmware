@@ -12,8 +12,7 @@ enum layer_number {
     MOUSE, BALL_SETTINGS, MISC                // 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
-// 2. タップダンスの設定 KC_ZKHK KC_GRV KC_GRAVE
-// 型名を qk_tap_dance_action_t から tap_dance_action_t に修正しました
+// 2. タップダンスの設定
 enum {
     TD_ESC_GRAVE = 0,                        // ESCと半角／全角
     TD_RIGHT_J,                              // 右矢印とJ　YouTube用
@@ -66,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ENT, KC_SPACE,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
         // 追加スイッチ 左 右                        // トグルスイッチ
-        MO(UTIL), MO(MOUSE),                       MO(OFFON)
+        MO(BALL_SETTINGS), MO(MOUSE),                       MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
         // 左手
