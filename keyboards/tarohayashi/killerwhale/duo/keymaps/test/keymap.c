@@ -33,11 +33,11 @@ enum combos {
 };
 
 const uint16_t PROGMEM enter_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM space_combo[]   = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM space_combo[] = {KC_D, KC_F, COMBO_END};
 
 combo_t key_combos[] = {
     [CMB_ENTER] = COMBO(enter_combo, KC_ENT),
-    [CMB_SPACE]   = COMBO(space_combo, KC_SPACE),
+    [CMB_SPACE] = COMBO(space_combo, KC_SPACE),
 };
 
 // 4. キーマップの設定
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 左手
         _______,   _______,  _______, _______, _______,  _______,
         _______,   _______,  _______, _______, _______,  _______,
-        _______,   _______,  MS_BTN3, MS_BTN2, MS_BTN1, MOD_SCRL,
+        _______,   _______,  MS_BTN2, MS_BTN3, MS_BTN1, MOD_SCRL,
                  QK_USER_4,  _______, _______, _______,  _______,
                             MOD_SCRL,
         // 側面スイッチ 上 下
@@ -159,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 右手
         _______,      _______, _______,     _______,   _______, _______,
         _______,  CTL_T(KC_C), MS_WHLU, CTL_T(KC_V),   _______, _______,
-        MOD_SCRL,     MS_BTN1, MS_BTN2,     MS_BTN3,   _______, _______,
+        MOD_SCRL,     MS_BTN1, MS_BTN3,     MS_BTN2,   _______, _______,
         _______,      _______, MS_WHLD,     _______, QK_USER_4,
                                            MOD_SCRL,
         // 側面スイッチ 下 上
