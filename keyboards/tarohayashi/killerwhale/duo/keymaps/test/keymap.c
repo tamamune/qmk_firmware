@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_F11,  KC_F12,   KC_UP,  _______, _______, _______,
         _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_SCLN, KC_SLSH,
         _______, _______, KC_LBRC,  KC_RBRC, KC_BSLS,
-　　　　　　　　　　　　　　　　　　　　_______,
+                                    _______,
         // 側面スイッチ 下 上
         _______, _______,
         _______, _______, _______, _______,          _______,
