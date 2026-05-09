@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
         // 追加スイッチ 左 右                       // トグルスイッチ
-        KC_TAB, MO(BALL_SETTINGS),                     MO(ONOFF),
+        KC_TAB, TG(BALL_SETTINGS),                     MO(ONOFF),
 
         // 右手
                   KC_6,           KC_7,    KC_8,   KC_9,    KC_0, KC_MINS,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ENT, KC_SPACE,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
         // 追加スイッチ 左 右                        // トグルスイッチ
-        MO(MOUSE), KC_BSPC,                       MO(OFFON)
+        TG(MOUSE), KC_BSPC,                       MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
         // 左手
