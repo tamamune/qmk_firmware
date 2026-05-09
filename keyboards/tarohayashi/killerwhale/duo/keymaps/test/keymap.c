@@ -15,7 +15,7 @@ enum layer_number {
 // 2. タップダンスの設定 KC_ZKHK KC_GRV KC_GRAVE
 // 型名を qk_tap_dance_action_t から tap_dance_action_t に修正しました
 enum {
-    TD_ESC_GRAVE = 0,　　　　　　　　　　　　　// ESCと半角／全角
+    TD_ESC_GRAVE = 0,                        // ESCと半角／全角
     TD_RIGHT_J,                              // 右矢印とJ　YouTube用
     TD_LEFT_L                                // 左矢印とL　YouTube用
 };
