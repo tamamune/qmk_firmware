@@ -16,10 +16,14 @@ enum layer_number {
 // 型名を qk_tap_dance_action_t から tap_dance_action_t に修正しました
 enum {
     TD_ESC_GRAVE = 0
+    TD_RIGHT_J = 1
+    TD_LEFT_L = 2
 };
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE)
+    [TD_RIGHT_J] = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT, KC_J)
+    [TD_LEFT_L] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_L)
 };
 
 // 3. コンボの設定 ※追加時は「config.h」で個数を増やして
