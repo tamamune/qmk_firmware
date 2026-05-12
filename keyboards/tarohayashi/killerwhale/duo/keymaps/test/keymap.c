@@ -62,7 +62,7 @@ combo_t key_combos[] = {
 // 4. 独自のキーコードを定義
 enum custom_keycodes {
     MC_CAD = SAFE_RANGE, // Ctrl + Alt + Del 用
-    MC_LOCK              // ついでに Win + L (ロック) も作るなら
+    MC_TASK              // タスクマネージャーを直接起動
 };
 
 // 5. キーマップの設定
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ONOFF] = LAYOUT(
         // 左手
         _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
-        _______, _______, _______, _______,  MC_CAD, _______,
+        _______, _______, _______, MC_TASK,  MC_CAD, _______,
         _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
                           _______,
@@ -278,10 +278,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(LCTL(LALT(KC_DEL)));
             }
             break;
-        case MC_LOCK:
+        case MC_TASK:
             if (record->event.pressed) {
-                // Win + L を叩く
-                tap_code16(LGUI(KC_L));
+                // Ctrl + Shift + Esc を同時に叩く
+                tap_code16(LCTL(LSFT(KC_ESC)));
             }
             break;
     }
