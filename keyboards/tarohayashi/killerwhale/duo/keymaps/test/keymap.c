@@ -15,12 +15,16 @@ enum layer_number {
 // 2. タップダンスの設定
 enum {
     TD_ESC_GRAVE = 0,                        // ESCと半角／全角
+    TD_1,
+    TD_2,
     TD_COMM_S,                               // ,<
     TD_DOT_S                                 // />
 };
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
+    [TD_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_GRAVE),
+    [TD_2] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_GRAVE),
     [TD_COMM_S] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, S(KC_COMM)),
     [TD_DOT_S] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, S(KC_DOT))
 };
@@ -43,7 +47,7 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
         // 左手
-        TD(TD_ESC_GRAVE), KC_1,    KC_2, KC_3,           KC_4,           KC_5,
+        TD(TD_ESC_GRAVE), TD(TD_1),    TD(TD_2), KC_3,           KC_4,           KC_5,
                  KC_LSFT, KC_Q,    KC_W, KC_E,           KC_R,           KC_T,
                  CMD_CTL, KC_A,    KC_S, KC_D,           KC_F,           KC_G,
                           KC_Z,    KC_X, KC_C, LT(OFFON,KC_V), LT(ONOFF,KC_B),
