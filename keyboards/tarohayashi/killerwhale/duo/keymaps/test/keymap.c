@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,
         _______, _______, _______, _______,          _______,
         // 追加スイッチ                      // トグルスイッチ
-        TG(BASE), _______,                            _______
+        TG(MOUSE), _______,                            _______
     ),
     [BALL_SETTINGS] = LAYOUT(
         // 左手
