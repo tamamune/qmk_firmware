@@ -15,8 +15,16 @@ enum layer_number {
 // 2. タップダンスの設定
 enum {
     TD_ESC_GRAVE = 0,                        // ESCと半角／全角
-    TD_1,
-    TD_2,
+    TD_1,                                    // 1
+    TD_2,                                    // 2
+    TD_3,                                    // 3
+    TD_4,                                    // 4
+    TD_5,                                    // 5
+    TD_6,                                    // 6
+    TD_7,                                    // 7
+    TD_8,                                    // 8
+    TD_9,                                    // 9
+    TD_0,                                    // 0
     TD_COMM_S,                               // ,<
     TD_DOT_S                                 // />
 };
@@ -25,6 +33,14 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
     [TD_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, S(KC_1)),
     [TD_2] = ACTION_TAP_DANCE_DOUBLE(KC_2, S(KC_2)),
+    [TD_3] = ACTION_TAP_DANCE_DOUBLE(KC_3, S(KC_3)),
+    [TD_4] = ACTION_TAP_DANCE_DOUBLE(KC_4, S(KC_4)),
+    [TD_5] = ACTION_TAP_DANCE_DOUBLE(KC_5, S(KC_5)),
+    [TD_6] = ACTION_TAP_DANCE_DOUBLE(KC_6, S(KC_6)),
+    [TD_7] = ACTION_TAP_DANCE_DOUBLE(KC_7, S(KC_7)),
+    [TD_8] = ACTION_TAP_DANCE_DOUBLE(KC_8, S(KC_8)),
+    [TD_9] = ACTION_TAP_DANCE_DOUBLE(KC_9, S(KC_9)),
+    [TD_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, S(KC_0)),
     [TD_COMM_S] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, S(KC_COMM)),
     [TD_DOT_S] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, S(KC_DOT))
 };
@@ -47,11 +63,11 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
         // 左手
-        TD(TD_ESC_GRAVE), TD(TD_1),    TD(TD_2), KC_3,           KC_4,           KC_5,
-                 KC_LSFT, KC_Q,    KC_W, KC_E,           KC_R,           KC_T,
-                 CMD_CTL, KC_A,    KC_S, KC_D,           KC_F,           KC_G,
-                          KC_Z,    KC_X, KC_C, LT(OFFON,KC_V), LT(ONOFF,KC_B),
-                                KC_LWIN,
+        TD(TD_ESC_GRAVE), TD(TD_1), TD(TD_2), TD(TD_3),       TD(TD_4),       TD(TD_5),
+                 KC_LSFT,     KC_Q,     KC_W,     KC_E,           KC_R,           KC_T,
+                 CMD_CTL,     KC_A,     KC_S,     KC_D,           KC_F,           KC_G,
+                              KC_Z,     KC_X,     KC_C, LT(OFFON,KC_V), LT(ONOFF,KC_B),
+                                     KC_LWIN,
         // 側面スイッチ 上 下
         KC_SPACE, KC_ENT,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
@@ -59,12 +75,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 追加スイッチ 左 右                       // トグルスイッチ
         KC_LALT, TG(BALL_SETTINGS),                     MO(ONOFF),
 
-        // 右手KC_LALT KC_EQL+ KC_QUOT` KC_RBRC] KC_LBRC[ KC_SCLN;
-                  KC_6,           KC_7,    KC_8,   KC_9,    KC_0, KC_BSPC,
-                  KC_Y,           KC_U,    KC_I,   KC_O,    KC_P, KC_MINS,
-                  KC_H,           KC_J,    KC_K,   KC_L, KC_SCLN, KC_QUOT,
-        LT(ONOFF,KC_N), LT(OFFON,KC_M), TD(TD_COMM_S), TD(TD_DOT_S), KC_RBRC,
-                                                KC_LBRC,
+        // 右手
+              TD(TD_6),       TD(TD_7),      TD(TD_8),     TD(TD_9), TD(TD_0), KC_BSPC,
+                  KC_Y,           KC_U,          KC_I,         KC_O,     KC_P, KC_MINS,
+                  KC_H,           KC_J,          KC_K,         KC_L,  KC_SCLN, KC_QUOT,
+        LT(ONOFF,KC_N), LT(OFFON,KC_M), TD(TD_COMM_S), TD(TD_DOT_S),  KC_RBRC,
+                                                            KC_LBRC,
         // 側面スイッチ 下 上
         KC_ENT, KC_SPACE,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
