@@ -14,11 +14,15 @@ enum layer_number {
 
 // 2. タップダンスの設定
 enum {
-    TD_ESC_GRAVE = 0                        // ESCと半角／全角
+    TD_ESC_GRAVE = 0,                        // ESCと半角／全角
+    TD_COMM_<,                               // ,<
+    TD_DOT_>                                 // />
 };
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE)
+    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
+    [TD_COMM_<] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, S(KC_COMM)),
+    [TD_DOT_>] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, S(KC_DOT))
 };
 
 // 3. コンボの設定 ※追加時は「config.h」で個数を増やして
@@ -55,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   KC_6,           KC_7,    KC_8,   KC_9,    KC_0, KC_BSPC,
                   KC_Y,           KC_U,    KC_I,   KC_O,    KC_P, KC_MINS,
                   KC_H,           KC_J,    KC_K,   KC_L, KC_SCLN, KC_QUOT,
-        LT(ONOFF,KC_N), LT(OFFON,KC_M), KC_COMM, KC_DOT, KC_RBRC,
+        LT(ONOFF,KC_N), LT(OFFON,KC_M), TD(TD_COMM_<), TD(TD_DOT_>), KC_RBRC,
                                                 KC_LBRC,
         // 側面スイッチ 下 上
         KC_ENT, KC_SPACE,
