@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  C(KC_C), MS_WHLU, C(KC_V),   _______, _______,
         MOD_SCRL, MS_BTN1, MS_BTN3, MS_BTN2,   _______, _______,
         _______,  _______, MS_WHLD, _______, QK_USER_4,
-                                　 MOD_SCRL,
+                                   MOD_SCRL,
         // 側面スイッチ 下 上
         _______, _______,
         _______, _______, _______, _______,          _______,
