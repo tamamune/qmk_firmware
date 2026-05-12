@@ -59,7 +59,13 @@ combo_t key_combos[] = {
     [CMB_SPACE] = COMBO(space_combo, KC_SPACE),
 };
 
-// 4. キーマップの設定
+// 4. 独自のキーコードを定義
+enum custom_keycodes {
+    MC_CAD = SAFE_RANGE, // Ctrl + Alt + Del 用
+    MC_LOCK              // ついでに Win + L (ロック) も作るなら
+};
+
+// 5. キーマップの設定
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
         // 左手
@@ -90,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ONOFF] = LAYOUT(
         // 左手
         _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
-        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______,  MC_CAD, _______,
         _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
                           _______,
@@ -239,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// 5. エンコーダーの設定
+// 6. エンコーダーの設定
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [BASE] =   {
         ENCODER_CCW_CW(KC_ESC, KC_TAB),
@@ -262,3 +268,22 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(_______, _______)
     }
 };
+
+// 7. カスタムキーの設定
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MC_CAD:
+            if (record->event.pressed) {
+                // Ctrl + Alt + Del を同時に叩く
+                tap_code16(LCTL(LALT(KC_DEL)));
+            }
+            break;
+        case MC_LOCK:
+            if (record->event.pressed) {
+                // Win + L を叩く
+                tap_code16(LGUI(KC_L));
+            }
+            break;
+    }
+    return true;
+}
