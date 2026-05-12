@@ -204,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         // 追加スイッチ                      // トグルスイッチ
-        INV_SCRL, TG(BASE),                           XXXXXXX,
+        INV_SCRL, TG(BALL_SETTINGS),                           XXXXXXX,
 
         // 右手
         R_CHMOD, _______, QK_USER_14, XXXXXXX, XXXXXXX,    XXXXXXX,
