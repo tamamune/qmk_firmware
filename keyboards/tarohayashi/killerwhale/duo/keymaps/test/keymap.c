@@ -14,15 +14,11 @@ enum layer_number {
 
 // 2. タップダンスの設定
 enum {
-    TD_ESC_GRAVE = 0,                        // ESCと半角／全角
-    TD_RIGHT_J,                              // 右矢印とJ　YouTube用
-    TD_LEFT_L                                // 左矢印とL　YouTube用
+    TD_ESC_GRAVE = 0                        // ESCと半角／全角
 };
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
-    [TD_RIGHT_J] = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT, KC_J),
-    [TD_LEFT_L] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_L)
+    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE)
 };
 
 // 3. コンボの設定 ※追加時は「config.h」で個数を増やして
@@ -143,11 +139,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                            _______
     ),
     [MOUSE] = LAYOUT(
-        // 左手
-        _______,  _______,       _______,  _______,        _______,           _______,
-        _______,     KC_F,          KC_P,    KC_UP,           KC_N,   KC_KB_VOLUME_UP,
-        _______,     KC_M, TD(TD_LEFT_L), KC_SPACE, TD(TD_RIGHT_J),              KC_F,
-                     KC_C,    C(KC_LEFT),  KC_DOWN,    C(KC_RIGHT), KC_KB_VOLUME_DOWN,
+        // 左手KC_COMM, KC_DOT
+        _______,  _______, S(KC_COMM),  _______, S(KC_DOT),           _______,
+        _______,     KC_F,    S(KC_P),    KC_UP,   S(KC_N),   KC_KB_VOLUME_UP,
+        _______,     KC_M,    KC_LEFT, KC_SPACE,  KC_RIGHT,              KC_F,
+                     KC_C,       KC_J,  KC_DOWN,      KC_L, KC_KB_VOLUME_DOWN,
                                 MOD_SCRL,
         // 側面スイッチ 上 下
         _______, _______,
