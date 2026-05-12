@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [MOUSE] = LAYOUT(
         // 左手KC_COMM, KC_DOT
-        _______,  _______, S(KC_COMM),  _______, S(KC_DOT),           _______,
+        _______,  _______, S(KC_COMM),  _______, S(KC_DOT), _______,
         _______,     KC_F,    S(KC_P),    KC_UP,   S(KC_N), KC_VOLU,
         _______,     KC_M,    KC_LEFT, KC_SPACE,  KC_RIGHT,    KC_F,
                      KC_C,       KC_J,  KC_DOWN,      KC_L, KC_VOLD,
