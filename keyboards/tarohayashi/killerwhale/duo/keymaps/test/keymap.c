@@ -21,8 +21,8 @@ enum {
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
-    [TD_COMM_<] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, S(KC_COMM)),
-    [TD_DOT_>] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, S(KC_DOT))
+    [TD_COMM_SCOMM] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, S(KC_COMM)),
+    [TD_DOT_SDOT] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, S(KC_DOT))
 };
 
 // 3. コンボの設定 ※追加時は「config.h」で個数を増やして
