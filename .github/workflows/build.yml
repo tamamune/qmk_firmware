@@ -17,8 +17,10 @@ jobs:
 
       - name: Build Firmware
         run: |
-          qmk setup -y
-          # ▼ ご自身のキーボードのリビジョンとキーマップ名を指定
+          # Gitの所有権エラー (status 128) 回避
+          git config --global --add safe.directory "*"
+
+          # ※リポジトリ内のキーマップフォルダ名に合わせて -km を変更してください
           qmk compile -kb doio/kb16/rev2 -km via
 
       - name: Upload Firmware
