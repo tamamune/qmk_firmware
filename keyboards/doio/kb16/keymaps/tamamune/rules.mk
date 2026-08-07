@@ -1,3 +1,5 @@
+ENCODER_MAP_ENABLE = yes
+
 # WS2812の制御方式をPWM(DMA)に切り替え
 WS2812_DRIVER = pwm
 
