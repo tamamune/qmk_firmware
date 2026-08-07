@@ -1,0 +1,31 @@
+name: Build DOIO KB16 Firmware
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build Firmware
+        run: |
+          qmk setup -y
+          # ▼ ご自身のキーボードのリビジョンとキーマップ名を指定
+          qmk compile -kb doio/kb16/rev2 -km via
+
+      - name: Upload Firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: doio-kb16-firmware
+          path: |
+            *.hex
+            *.bin
+            *.uf2
