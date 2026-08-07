@@ -20,17 +20,11 @@
 /* Use the custom font */
 #define OLED_FONT_H "./lib/glcdfont.c"
 
-/* WS2812 通信パルス制御（チラつき・消灯不能の修正） */
-#define WS2812_TIMING 1250
-#define WS2812_T0H 350
-#define WS2812_T1H 800
-#define WS2812_TRST_US 300    /* リセット時間を300µsに延ばして消灯信号を確定させる */
-
 /* RGB Matrix 安定化設定 */
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_FPS 30
 
-/* アニメーション無効化（処理軽量化） */
+/* 負荷軽減用のアニメーション無効化 */
 #define DISABLE_RGB_MATRIX_CYCLE_ALL
 #define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
