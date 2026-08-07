@@ -1,4 +1,4 @@
-/* Copyright 2022 DOIO
+/* Copyright 2022 DOIO-
  * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
