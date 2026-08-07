@@ -24,6 +24,10 @@
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_FPS 30
 
+/* ★全消灯時に白く光る現象の対策（信号線をLOWに固定） */
+#define WS2812_EXTERNAL_PULLDOWN
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+
 /* 負荷の大きい複雑なアニメーションを無効化 */
 #define DISABLE_RGB_MATRIX_CYCLE_ALL
 #define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
