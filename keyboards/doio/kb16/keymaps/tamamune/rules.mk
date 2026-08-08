@@ -1,9 +1,3 @@
+# Encoder enabled
 ENCODER_MAP_ENABLE = yes
-
-# 機能の有効化と競合防止
 VIA_ENABLE = yes
-RGB_MATRIX_ENABLE = yes
-RGBLIGHT_ENABLE = no
-
-# ★SPI(DMA)制御に変更
-WS2812_DRIVER = spi
