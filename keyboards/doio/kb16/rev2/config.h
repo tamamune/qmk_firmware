@@ -23,3 +23,5 @@
     #define I2C1_SDA_PIN B11
     #define I2C_DRIVER I2CD2
 #endif
+
+#define STM32_ONBOARD_EEPROM_SIZE 4098
