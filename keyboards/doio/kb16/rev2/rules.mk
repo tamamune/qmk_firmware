@@ -5,7 +5,4 @@ SRC += ./lib/logo.c
 MCU_LDSCRIPT = STM32F103xB
 
 RGB_MATRIX_ENABLE = yes
-/*
-RGBLIGHT_ENABLE = no
-*/
 WS2812_DRIVER = vendor
