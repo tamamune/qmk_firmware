@@ -140,6 +140,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif
 
 /* ★キーボード起動時にEEPROM（壊れたRGBデータ）を強制自動消去する設定 */
+/*
 void keyboard_post_init_user(void) {
     eeconfig_init();
 }
+*/
