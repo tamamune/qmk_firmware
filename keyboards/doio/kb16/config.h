@@ -17,10 +17,5 @@
 
 #pragma once
 
-/* Custom OLED Font */
+/* Use the custom font */
 #define OLED_FONT_H "./lib/glcdfont.c"
-
-/* RGB Matrix 安定化設定 */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
-#define RGB_MATRIX_FPS 30
-#define DISABLE_RGB_MATRIX_HUE_WAVE
