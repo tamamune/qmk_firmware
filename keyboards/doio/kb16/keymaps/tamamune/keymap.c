@@ -138,10 +138,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_FN2]  = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
 };
 #endif
-
-/* ★キーボード起動時にEEPROM（壊れたRGBデータ）を強制自動消去する設定 */
-/*
-void keyboard_post_init_user(void) {
-    eeconfig_init();
-}
-*/
