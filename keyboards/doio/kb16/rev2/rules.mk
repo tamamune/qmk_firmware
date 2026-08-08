@@ -3,7 +3,6 @@ SRC += ./lib/logo.c
 
 # Configure for 128K flash
 MCU_LDSCRIPT = STM32F103xB
-/* 上はデフォルト */
 
 RGB_MATRIX_ENABLE = no
 RGBLIGHT_ENABLE = no
