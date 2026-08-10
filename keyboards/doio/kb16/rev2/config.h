@@ -6,3 +6,8 @@
     #define I2C1_SDA_PIN B11
     #define I2C_DRIVER I2CD2
 #endif
+
+#ifdef RGB_MATRIX_ENABLE
+  #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
+#endif
