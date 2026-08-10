@@ -42,3 +42,16 @@ void matrix_scan_kb(void) {
 #endif
     matrix_scan_user();
 }
+
+#ifdef RGB_MATRIX_ENABLE
+#include "rgb_matrix.h"
+
+// 基板側での白色上書き処理を一切行わず、VIAやRGB_TOGの制御に任せる
+bool rgb_matrix_indicators_kb(void) {
+    return true;
+}
+
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
+#endif
