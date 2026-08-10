@@ -70,9 +70,11 @@ bool rgb_matrix_indicators_kb(void) {
     return rgb_matrix_indicators_user();
 }
 
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+// 【代替案2】消灯中に強制的に全LEDへ黒(0,0,0)を割り当てる処理
+bool rgb_matrix_indicators_user(void) {
     if (!rgb_matrix_is_enabled()) {
+        rgb_matrix_set_color_all(0, 0, 0); // 明示的に全消灯
         return false;
     }
-    return rgb_matrix_indicators_advanced_user(led_min, led_max);
+    return true;
 }
