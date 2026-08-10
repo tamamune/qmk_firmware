@@ -5,14 +5,6 @@
 #define ANIM_SIZE 525  // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 void render_layer_status(void) {
-    // --- 100ms（毎秒10回）未満の頻度なら描画をスキップしてI2C割り込みを抑制 ---
-    static uint16_t oled_timer = 0;
-    if (timer_elapsed(oled_timer) < 100) {
-        return;
-    }
-    oled_timer = timer_read();
-    // ------------------------------------------------------------------
-
     static const char PROGMEM layer_status[][ANIM_SIZE] = {
         {
         //Layer 1
