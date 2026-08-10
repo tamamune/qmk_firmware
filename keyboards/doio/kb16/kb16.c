@@ -33,6 +33,8 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
+#include "rgb_matrix.h"
+
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     // RGBがOFFの時は全LED範囲を黒(0,0,0)にして強制消灯
     if (!rgb_matrix_is_enabled()) {
