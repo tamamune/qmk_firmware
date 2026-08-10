@@ -59,21 +59,20 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-// =================================================================
-// 【代替案1】基板側(_kb)のインジケータ処理を直接オーバーライドして無効化する
-// =================================================================
-bool rgb_matrix_indicators_kb(void) {
-    // RGBがOFFの場合は基板側の白色点灯処理を一切実行せずに即座に終了する
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    // RGBがOFFの時は全LED範囲に黒(0,0,0)を書き込んで強制消灯する
     if (!rgb_matrix_is_enabled()) {
+        for (uint8_t i = led_min; i < led_max; i++) {
+            rgb_matrix_set_color(i, 0, 0, 0);
+        }
         return false;
     }
-    return rgb_matrix_indicators_user();
+    return true;
 }
 
-// 【代替案2】消灯中に強制的に全LEDへ黒(0,0,0)を割り当てる処理
 bool rgb_matrix_indicators_user(void) {
     if (!rgb_matrix_is_enabled()) {
-        rgb_matrix_set_color_all(0, 0, 0); // 明示的に全消灯
+        rgb_matrix_set_color_all(0, 0, 0);
         return false;
     }
     return true;
