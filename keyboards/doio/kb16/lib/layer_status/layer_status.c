@@ -14,12 +14,6 @@ void render_layer_status(void) {
     // ------------------------------------------------------------------
 
     static const char PROGMEM layer_status[][ANIM_SIZE] = {
-        // (Layer 1 〜 Layer 4 の配列データ)
-    };
-
-    oled_write_raw_P(layer_status[get_highest_layer(layer_state)], sizeof(layer_status[0]));
-
-    static const char PROGMEM layer_status[][ANIM_SIZE] = {
         {
         //Layer 1
         0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0xe0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0,
@@ -164,27 +158,3 @@ void render_layer_status(void) {
 
     oled_write_raw_P(layer_status[get_highest_layer(layer_state)], sizeof(layer_status[0]));
 }
-
-// =================================================================
-// RGBトグル消灯制御 (info.jsonの flags: 4 インジケータLED用対策)
-// =================================================================
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    // RGBがOFFの時はインジケータLEDを含め全LEDを黒(0,0,0)にして強制消灯
-    if (!rgb_matrix_is_enabled()) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, 0, 0, 0);
-        }
-        return false;
-    }
-    return rgb_matrix_indicators_advanced_user(led_min, led_max);
-}
-
-bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_is_enabled()) {
-        rgb_matrix_set_color_all(0, 0, 0);
-        return false;
-    }
-    return rgb_matrix_indicators_user();
-}
-#endif
