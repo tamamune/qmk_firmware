@@ -1,4 +1,3 @@
-#include "quantum.h"
 #include "oled_driver.h"
 #include "action_layer.h"
 #include "progmem.h"
@@ -13,6 +12,12 @@ void render_layer_status(void) {
     }
     oled_timer = timer_read();
     // ------------------------------------------------------------------
+
+    static const char PROGMEM layer_status[][ANIM_SIZE] = {
+        // (Layer 1 〜 Layer 4 の配列データ)
+    };
+
+    oled_write_raw_P(layer_status[get_highest_layer(layer_state)], sizeof(layer_status[0]));
 
     static const char PROGMEM layer_status[][ANIM_SIZE] = {
         {
