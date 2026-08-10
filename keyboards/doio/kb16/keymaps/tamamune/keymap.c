@@ -58,22 +58,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_FN2]  = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
 };
 #endif
-
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    // RGBがOFFの時は全LED範囲に黒(0,0,0)を書き込んで強制消灯する
-    if (!rgb_matrix_is_enabled()) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, 0, 0, 0);
-        }
-        return false;
-    }
-    return true;
-}
-
-bool rgb_matrix_indicators_user(void) {
-    if (!rgb_matrix_is_enabled()) {
-        rgb_matrix_set_color_all(0, 0, 0);
-        return false;
-    }
-    return true;
-}
