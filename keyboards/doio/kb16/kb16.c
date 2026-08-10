@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include "rgb_matrix.h"
 
 // OLED animation
 #include "./lib/logo.h"
@@ -32,25 +33,12 @@
     }
 #endif
 
+void matrix_scan_kb(void) {
 #ifdef RGB_MATRIX_ENABLE
-#include "rgb_matrix.h"
-
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    // RGBがOFFの時は全LED範囲を黒(0,0,0)にして強制消灯
-    if (!rgb_matrix_is_enabled()) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            rgb_matrix_set_color(i, 0, 0, 0);
-        }
-        return false;
-    }
-    return rgb_matrix_indicators_advanced_user(led_min, led_max);
-}
-
-bool rgb_matrix_indicators_kb(void) {
+    // RGBがOFFの時は毎スキャンで全LEDへ黒(0,0,0)をセットし消灯を確定させる
     if (!rgb_matrix_is_enabled()) {
         rgb_matrix_set_color_all(0, 0, 0);
-        return false;
     }
-    return rgb_matrix_indicators_user();
-}
 #endif
+    matrix_scan_user();
+}
