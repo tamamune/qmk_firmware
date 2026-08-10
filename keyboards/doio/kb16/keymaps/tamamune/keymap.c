@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-// OLED animation
+// OLED animation＠
 #include "lib/layer_status/layer_status.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
