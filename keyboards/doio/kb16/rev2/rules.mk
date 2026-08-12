@@ -24,7 +24,7 @@ DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+# BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -40,7 +40,7 @@ OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
 # RGB Matrix enabled
-RGB_MATRIX_ENABLE = yes
+# RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = ws2812
 
 # Encoder enabled
