@@ -16,8 +16,12 @@
     /* RGB Matrix config */
     #define WS2812_DI_PIN A10
     #define DRIVER_LED_TOTAL 16
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+
+/* フリッカー・割り込み対策 */
+    #define WS2812_TRST_US 300                // リセット待ち時間を 280us -> 300us に延長
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // 輝度上限を120に制限（電圧降下防止）
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_UP_DOWN
     #define RGB_MATRIX_KEYPRESSES
 
