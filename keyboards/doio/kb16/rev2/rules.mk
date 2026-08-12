@@ -37,7 +37,7 @@ USE_VIA = yes
 
 # OLED enabled
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+# OLED_DRIVER = SSD1306
 
 # RGB Matrix enabled
 # RGB_MATRIX_ENABLE = yes
