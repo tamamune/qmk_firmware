@@ -11,7 +11,7 @@
 /*下が書き換え部分*/
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
-    #define RGB_DI_PIN A10
+    #define WS2812_DI_PIN A10
     #define DRIVER_LED_TOTAL 16
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
