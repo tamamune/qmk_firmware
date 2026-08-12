@@ -2,10 +2,10 @@ SRC += ./lib/layer_status/layer_status.c
 SRC += ./lib/logo.c
 
 # Configure for 128K flash
-/*MCU_LDSCRIPT = STM32F103xB*/
-/*上はデフォルト*/
+# MCU_LDSCRIPT = STM32F103xB
+# 上はデフォルト
 
-/*下は書き換え部分*/
+# 下は書き換え部分
 # MCU name
 MCU = STM32F103
 
