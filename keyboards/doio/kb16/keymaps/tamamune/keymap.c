@@ -114,15 +114,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 */
 
-// keymap.c 内のイメージ
+// レイヤーが切り替わった時にフラグをオンにする
+layer_state_t layer_state_set_user(layer_state_t state) {
+    is_oled_dirty = true;
+    return state;
+}
+
 bool oled_task_user(void) {
-    if (is_oled_dirty) { // 変化があった時だけ書き換え
-        // OLED描画処理
+    if (is_oled_dirty) {
+        // ここに既存のOLED描画処理（oled_writeなど）を記述
         is_oled_dirty = false;
     }
     return false;
 }
-
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
