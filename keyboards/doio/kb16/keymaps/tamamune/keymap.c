@@ -1,5 +1,21 @@
 #include QMK_KEYBOARD_H
 
+// ▼ 関数の外側（ファイルの上のほう）で変数を宣言します
+static bool is_oled_dirty = true;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    is_oled_dirty = true;
+    return state;
+}
+
+bool oled_task_user(void) {
+    if (is_oled_dirty) {
+        // ここに既存のOLED描画処理（oled_writeなど）を記述
+        is_oled_dirty = false;
+    }
+    return false;
+}
+
 // OLED animation
 #include "lib/layer_status/layer_status.h"
 
@@ -113,20 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }
 #endif
 */
-
-// レイヤーが切り替わった時にフラグをオンにする
-layer_state_t layer_state_set_user(layer_state_t state) {
-    is_oled_dirty = true;
-    return state;
-}
-
-bool oled_task_user(void) {
-    if (is_oled_dirty) {
-        // ここに既存のOLED描画処理（oled_writeなど）を記述
-        is_oled_dirty = false;
-    }
-    return false;
-}
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
