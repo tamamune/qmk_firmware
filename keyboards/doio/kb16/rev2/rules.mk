@@ -42,6 +42,7 @@ OLED_ENABLE = yes
 # RGB Matrix enabled
 # RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = ws2812
+WS2812_DRIVER = PWM # タイマー制御（PWM）を明示して割り込み競合によるチラつきを防止
 
 # Encoder enabled
 ENCODER_ENABLE = yes
