@@ -5,6 +5,9 @@
     #define I2C1_SCL_PIN B10
     #define I2C1_SDA_PIN B11
     #define I2C_DRIVER I2CD2
+
+    /* ★描画負荷を落とし通信衝突（フリッカー・フリーズ）を防ぐ重要設定 */
+    #define OLED_UPDATE_INTERVAL 50
 #endif
 /*上はデフォルト*/
 
