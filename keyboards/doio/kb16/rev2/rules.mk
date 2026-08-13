@@ -40,7 +40,7 @@ OLED_ENABLE = yes
 # OLED_DRIVER = SSD1306
 
 # RGB Matrix enabled
-# RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = ws2812
 WS2812_DRIVER = pwm # タイマー制御（PWM）を明示して割り込み競合によるチラつきを防止
 
