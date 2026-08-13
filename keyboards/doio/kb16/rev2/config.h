@@ -5,25 +5,17 @@
     #define I2C1_SCL_PIN B10
     #define I2C1_SDA_PIN B11
     #define I2C_DRIVER I2CD2
-
-    /* ★描画負荷を落とし通信衝突（フリッカー・フリーズ）を防ぐ重要設定 */
-    #define OLED_UPDATE_INTERVAL 50
 #endif
-/*上はデフォルト*/
 
-/*下が書き換え部分*/
+/* ★ `#include_next <halconf.h>` は削除します */
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define WS2812_DI_PIN A10
     #define DRIVER_LED_TOTAL 16
 
-/* フリッカー・割り込み対策 */
-    #define WS2812_TRST_US 300                // リセット待ち時間を 280us -> 300us に延長
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // 輝度上限を120に制限（電圧降下防止）
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #define RGB_MATRIX_LED_FLUSH_LIMIT 16     // LED更新頻度を制限してOLED(I2C)との通信衝突を防止
-
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_UP_DOWN
     #define RGB_MATRIX_KEYPRESSES
 
