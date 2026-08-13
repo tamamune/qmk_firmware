@@ -10,8 +10,6 @@
 
 /*下が書き換え部分*/
 
-#include_next <halconf.h>
-
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define WS2812_DI_PIN A10
